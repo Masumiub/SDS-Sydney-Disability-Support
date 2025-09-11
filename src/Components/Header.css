@@ -1,0 +1,8 @@
+.headerSection {
+  background: linear-gradient(to right, #6B2B77, rgba(107, 43, 119, 0)),
+              url('../assets/banner.png');
+  background-color: #6B2B77; /* fallback */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
