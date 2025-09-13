@@ -216,7 +216,7 @@ const Register = () => {
                             </fieldset>
 
                             <div className='text-center'>
-                                <p>Already have an account? <Link to='/login' className='text-blue-500'>Log in</Link> </p>
+                                <p>Already have an account? <Link to='/auth/login' className='text-blue-500'>Log in</Link> </p>
                                 
                             </div>
 

@@ -57,7 +57,7 @@ const Login = () => {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Hello! Welcome to TourNest.",
+                    title: "Hello! Welcome to SDS.",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -135,7 +135,7 @@ const Login = () => {
                             </fieldset>
 
                             <div className='text-center mt-4'>
-                                <p>Don't have an account? <Link to='/register' className='text-[#6B2B77]'>Sign up</Link> </p>
+                                <p>Don't have an account? <Link to='/auth/register' className='text-[#6B2B77]'>Sign up</Link> </p>
                             </div>
 
                         </div>

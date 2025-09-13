@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { use } from 'react';
 import logo from '../assets/logo.png'
 import { IoIosArrowForward } from "react-icons/io";
-import { Link } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
+import { AuthContext } from '../contexts/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+
+    const { user, logout } = use(AuthContext);
+    const navigate = useNavigate();
+
+
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                //alert('You logged out successfully');
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "You logged out successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1000);
+            })
+            .catch((error) => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Failed to logout!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+    }
+
+
     return (
         <>
             <div className='bg-[#6B2B77]'>
@@ -65,10 +99,9 @@ const Navbar = () => {
                                 <li><a>About </a></li>
                             </ul>
                         </div>
-                        <a className="">Menu</a>
-                    </div>
-                    <div className="navbar-center hidden lg:flex">
-                        <ul className="menu menu-horizontal px-1">
+                        {/* <a className="">Menu</a> */}
+
+                        <ul className="menu menu-horizontal px-1 hidden lg:flex">
                             <li><a>Home</a></li>
                             <li>
                                 <details>
@@ -85,9 +118,46 @@ const Navbar = () => {
                             <li><a>About </a></li>
                         </ul>
                     </div>
+                    <div className="navbar-center hidden">
+                        {/* <ul className="menu menu-horizontal px-1">
+                            <li><a>Home</a></li>
+                            <li>
+                                <details>
+                                    <summary>Services and Support</summary>
+                                    <ul className="p-2">
+                                        <li><a>Submenu 1</a></li>
+                                        <li><a>Submenu 2</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li><a>Activites/Events</a></li>
+                            <li><a>Referral</a></li>
+                            <li><a>Join us</a></li>
+                            <li><a>About </a></li>
+                        </ul> */}
+                    </div>
                     <div className="navbar-end gap-2">
-                        <Link to='/dashboard'>Dashboard</Link>
-                        <a className="btn rounded-full shadow-none bg-purple-200 text-purple-900 border-0">Contact <IoIosArrowForward /></a>
+                        {
+                            user ? <div className="dropdown dropdown-end dropdown-hover"> <div className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="User"
+                                        src={user.photoURL} title={user ? user.displayName : 'Anonymous'} />
+                                </div>
+                            </div>
+                                <ul
+                                    className="menu dropdown-content bg-base-200 rounded-box z-1 shadow-lg">
+                                    <li className='pointer-events-none'>
+                                        <p className='text-lg font-semibold'>{user.displayName}</p>
+                                    </li>
+                                    <li className='pointer-events-none'> <p>{user.email}</p></li>
+                                    <li><Link to='/dashboard' className="btn rounded-full bg-purple-300 text-white border-0 btn-sm hover:bg-white shadow-none" ><RiDashboard3Line size={20} />Dashboard</Link> </li>
+                                    <li><button onClick={handleLogout} className="btn rounded-full bg-purple-300 text-white border-0 btn-sm mt-2"> Signout</button></li>
+                                </ul> </div> : <div className='flex gap-2'>
+                                <NavLink to='/auth/login' className="btn rounded-full  bg-purple-300 text-purple-900 border-0 shadow-none">Login</NavLink>
+                                <Link to='/auth/register' className="btn rounded-full bg-purple-300 text-purple-900 border-0 shadow-none">Register</Link>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

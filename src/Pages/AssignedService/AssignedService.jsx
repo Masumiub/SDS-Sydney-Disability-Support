@@ -26,19 +26,19 @@ export default function AssignedService() {
     const [events, setEvents] = useState([]);
 
 
-//     useEffect(() => {
-//   fetch("http://localhost:5000/api/events")
-//     .then((res) => res.json())
-//     .then((data) => {
-//       // convert string dates into JS Date objects
-//       const formatted = data.map(ev => ({
-//         ...ev,
-//         start: new Date(ev.start),
-//         end: new Date(ev.end),
-//       }));
-//       setEvents(formatted);
-//     });
-// }, []);
+    //     useEffect(() => {
+    //   fetch("http://localhost:5000/api/events")
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       // convert string dates into JS Date objects
+    //       const formatted = data.map(ev => ({
+    //         ...ev,
+    //         start: new Date(ev.start),
+    //         end: new Date(ev.end),
+    //       }));
+    //       setEvents(formatted);
+    //     });
+    // }, []);
 
     // Simulated fetch
     useEffect(() => {
@@ -82,37 +82,47 @@ export default function AssignedService() {
     };
 
     return (
-        <div className="grid grid-cols-4 gap-4 p-6">
-            {/* Left panel */}
-            <div className="col-span-1">
-                <button className="bg-purple-600 text-white px-4 py-2 rounded mb-4">
-                    + Add New Event
-                </button>
-                <h3 className="font-semibold mb-2">You are going to</h3>
-                <ul className="space-y-3">
-                    {events.map((ev) => (
-                        <li key={ev.id} className="p-3 border rounded shadow-sm">
-                            <h4 className="font-bold">{ev.title}</h4>
-                            <p>{ev.start.toLocaleDateString()} at {ev.start.toLocaleTimeString()}</p>
-                            <p className="text-sm text-gray-500">{ev.location}</p>
-                        </li>
-                    ))}
-                </ul>
+        <>
+
+            {/* Header Section */}
+            <div className="mb-8 p-6 mt-10">
+                <h1 className="text-5xl font-semibold text-gray-800 mb-6">Assigned Service</h1>
+                <p className="text-gray-600">Find your assigned services here.</p>
+
             </div>
 
-            {/* Calendar */}
-            <div className="col-span-3">
-                <Calendar
-                    localizer={localizer}
-                    events={events}
-                    startAccessor="start"
-                    endAccessor="end"
-                    style={{ height: 500 }}
-                    views={["month", "week", "day"]}
-                      defaultDate={new Date(2024, 9, 1)} // October 2024
-                    eventPropGetter={eventStyleGetter}
-                />
+            <div className="grid grid-cols-4 gap-4 p-6">
+                {/* Left panel */}
+                <div className="col-span-1">
+                    <button className="bg-purple-600 text-white px-4 py-2 rounded mb-4">
+                        + Add New Event
+                    </button>
+                    <h3 className="font-semibold mb-2">You are going to</h3>
+                    <ul className="space-y-3">
+                        {events.map((ev) => (
+                            <li key={ev.id} className="p-3  rounded shadow-sm">
+                                <h4 className="font-bold">{ev.title}</h4>
+                                <p>{ev.start.toLocaleDateString()} at {ev.start.toLocaleTimeString()}</p>
+                                <p className="text-sm text-gray-500">{ev.location}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Calendar */}
+                <div className="col-span-3">
+                    <Calendar
+                        localizer={localizer}
+                        events={events}
+                        startAccessor="start"
+                        endAccessor="end"
+                        style={{ height: 500 }}
+                        views={["month", "week", "day"]}
+                        defaultDate={new Date(2024, 9, 1)} // October 2024
+                        eventPropGetter={eventStyleGetter}
+                    />
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth'
 import { Navigate, useLocation } from 'react-router';
 
 
@@ -14,7 +14,7 @@ const PrivateRoutes = ({children}) => {
     }
 
     if(!user){
-        return <Navigate to='/login' state={{from : location.pathname}}></Navigate>
+        return <Navigate to='/auth/login' state={{from : location.pathname}}></Navigate>
     }
 
     return children;

@@ -15,6 +15,8 @@ import RequestServices from "../Pages/RequestServices/RequestServices";
 import ServiceRequestStatus from "../Pages/ServiceRequestStatus/ServiceRequestStatus";
 import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
 import AssignedService from "../Pages/AssignedService/AssignedService";
+import PrivateRoutes from "../routes/PrivateRoutes";
+import PhoneAuth from "../Pages/Auth/PhoneAuth/PhoneAuth";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
         children: [
             { path: "login", Component: Login },
             { path: "register", Component: Register },
+            {
+                path: "/auth/phone",
+                Component: PhoneAuth,
+            }
         ],
     },
     {
@@ -46,23 +52,23 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <UserDashboard></UserDashboard>
+                element: <PrivateRoutes><UserDashboard></UserDashboard></PrivateRoutes>
             },
             {
                 path: 'yourServices',
-                element: <YourServices></YourServices>
+                element: <PrivateRoutes><YourServices></YourServices></PrivateRoutes>
             },
             {
                 path: 'requestServices',
-                element: <RequestServices></RequestServices>
+                element: <PrivateRoutes><RequestServices></RequestServices></PrivateRoutes>
             },
             {
                 path: 'serviceRequestStatus',
-                element: <ServiceRequestStatus></ServiceRequestStatus>
+                element: <PrivateRoutes><ServiceRequestStatus></ServiceRequestStatus></PrivateRoutes>
             },
             {
                 path: 'serviceDetails',
-                element: <ServiceDetails></ServiceDetails>
+                element: <PrivateRoutes><ServiceDetails></ServiceDetails></PrivateRoutes>
             },
             {
                 path: "assignedService",

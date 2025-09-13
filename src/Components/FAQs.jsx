@@ -11,7 +11,7 @@ const FAQs = () => {
             </div>
 
             <div className='w-full md:w-1/2'>
-                <h2 className='text-3xl text-[#6B2B77] mb-8 font-bold'>Have a question?</h2>
+                <h2 className='text-3xl text-[#6B2B77] mb-8 font-bold pl-5'>Have a question?</h2>
 
                 <div className="collapse collapse-plus bg-base-100 border-b border-base-300 mt-12">
                     <input type="radio" name="my-accordion-3" defaultChecked />

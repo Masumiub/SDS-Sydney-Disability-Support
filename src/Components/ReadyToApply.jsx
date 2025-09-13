@@ -4,16 +4,14 @@ import readyserviceImg from '../assets/readyservice.png'
 
 const ReadyToApply = () => {
   return (
-    <div className="w-full  py-12">
-      <div className="w-full mx-auto flex flex-col md:flex-row">
+    <div className="w-full  py-17">
+      <div className="w-full mx-auto flex flex-col md:flex-row gap-10 items-center">
 
         <div className="w-full md:w-1/2">
           {/* Header */}
           <div className=" mb-8">
-            <p>Launch faster</p>
-            {/* <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-4 py-2 rounded-full mb-4">
-              Launch faster
-            </span> */}
+            <p className='mb-4 text-[#6B2B77]'>Launch faster</p>
+
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
               Ready to Apply for Services?
             </h2>
@@ -25,9 +23,6 @@ const ReadyToApply = () => {
               Taking the next step towards the right support has never been
               easier. At Sydney Disability Support, we offer a wide range of
               NDIS-compliant services designed to meet your unique needs.
-            </p>
-            
-            <p>
               Whether you're looking for help with daily living, building new
               skills, joining community activities, or accessing transport and
               housing support. We're here to walk the journey with you.
@@ -44,7 +39,7 @@ const ReadyToApply = () => {
 
           {/* CTA Button */}
           <div className=" mt-10">
-            <button className="btn bg-purple-600 hover:bg-purple-700 text-white font-semibold  rounded-lg transition-colors duration-20">
+            <button className="btn bg-[#6B2B77] hover:bg-purple-700 text-white font-semibold  rounded-lg transition-colors duration-20 px-15">
               View Services
             </button>
           </div>

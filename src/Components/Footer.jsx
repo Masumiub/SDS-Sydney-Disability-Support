@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { IoLogoFacebook } from 'react-icons/io5';
+import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="w-full bg-[#6B2B77] text-white pt-20 pb-8 mt-10 rounded-tl-4xl ">
@@ -7,19 +8,24 @@ const Footer = () => {
 
 
         {/* Links Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-8">
 
-        {/* Newsletter Section */}
-        <div className="mb-8">
+          {/* Newsletter Section */}
+          <div className="mb-8">
 
             <div>
-                <h1 className='text-white font-bold text-xl'>Sydney Disability Support</h1>
+              <h1 className='text-white font-bold text-xl'>Sydney Disability Support</h1>
             </div>
-          <h3 className="text-xs mb-4 my-6">
-            Connect with us for updates on services, events, and resources. Follow up and subscribe today.
-          </h3>
 
-        </div>
+            <div className='flex gap-4 my-5'>
+              <IoLogoFacebook size={25}/>
+              <FaInstagram size={25}/>
+            </div>
+            <h3 className="text-xs mb-4 my-6">
+              Connect with us for updates on services, events, and resources. Follow up and subscribe today.
+            </h3>
+
+          </div>
 
 
           {/* Important Links */}

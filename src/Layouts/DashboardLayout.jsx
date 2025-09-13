@@ -1,40 +1,69 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Link, Links, NavLink, Outlet, useNavigate } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
-
-const footerSections = [
-    {
-        title: 'Product',
-        links: ['Overview', 'Features', 'Solutions', 'Tutorials', 'Pricing', 'Releases']
-    },
-    {
-        title: 'Company',
-        links: ['About us', 'Careers', 'News', 'Media kit', 'Contact']
-    },
-    {
-        title: 'Resources',
-        links: ['Blog', 'Newsletter', 'Events', 'Help centre', 'Tutorials', 'Support']
-    },
-    {
-        title: 'Use cases',
-        links: ['Startups', 'Enterprise', 'Government', 'SaaS', 'Marketplaces', 'Ecommerce']
-    },
-    {
-        title: 'Social',
-        links: ['Twitter', 'LinkedIn', 'Facebook', 'GitHub', 'AngelList', 'Dribbble']
-    },
-    {
-        title: 'Legal',
-        links: ['Terms', 'Privacy', 'Cookies', 'Licenses', 'Settings', 'Contact']
-    }
-];
+import logo from '../assets/logo.png'
+import Footer from '../Components/Footer';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebase.config';
+// const footerSections = [
+//     {
+//         title: 'Product',
+//         links: ['Overview', 'Features', 'Solutions', 'Tutorials', 'Pricing', 'Releases']
+//     },
+//     {
+//         title: 'Company',
+//         links: ['About us', 'Careers', 'News', 'Media kit', 'Contact']
+//     },
+//     {
+//         title: 'Resources',
+//         links: ['Blog', 'Newsletter', 'Events', 'Help centre', 'Tutorials', 'Support']
+//     },
+//     {
+//         title: 'Use cases',
+//         links: ['Startups', 'Enterprise', 'Government', 'SaaS', 'Marketplaces', 'Ecommerce']
+//     },
+//     {
+//         title: 'Social',
+//         links: ['Twitter', 'LinkedIn', 'Facebook', 'GitHub', 'AngelList', 'Dribbble']
+//     },
+//     {
+//         title: 'Legal',
+//         links: ['Terms', 'Privacy', 'Cookies', 'Licenses', 'Settings', 'Contact']
+//     }
+// ];
 
 const DashboardLayout = () => {
 
     const { user, logout } = use(AuthContext);
+    const [contractPersonName, setContractPersonName] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                // Replace with logged-in user's ID (from auth.user.uid)
+                //const userId = "85OLMx8LsUdGjH4KiOoZk3udzD42";
+
+                if (!user?.uid) return; //  wait until user is available
+
+
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.contract_persons && data.contract_persons.length > 0) {
+                        setContractPersonName(data.contract_persons[0].name);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchUser();
+    }, [user]); // re-run when user changes
 
     const handleLogout = () => {
         logout()
@@ -48,7 +77,7 @@ const DashboardLayout = () => {
                     timer: 1500
                 });
                 setTimeout(() => {
-                    navigate('/login');
+                    navigate('/');
                 }, 1000);
             })
             .catch((error) => {
@@ -92,7 +121,12 @@ const DashboardLayout = () => {
                             <li><a>Status</a></li>
                         </ul>
                     </div>
-                    <Link to='/' className="btn btn-ghost text-xl">SDS</Link>
+                    <div className='flex gap-1 items-center'>
+                        <img src={logo} alt="logo" className='w-12' />
+                        <Link to='/' className="text-xl font-bold text-[#6B2B77]">SDS</Link>
+                    </div>
+
+
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -105,10 +139,11 @@ const DashboardLayout = () => {
 
                         <li>
 
-                               <Link to='requestServices'>Request Services</Link>
+                            <Link to='requestServices'>Request Services</Link>
 
                         </li>
                         <li><Link to='serviceRequestStatus'>Status</Link></li>
+                        <li><Link to='assignedService'>Assigned</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
@@ -123,14 +158,14 @@ const DashboardLayout = () => {
                             <ul
                                 className="menu dropdown-content bg-base-200 rounded-box z-1 shadow-lg">
                                 <li className='pointer-events-none'>
-                                    <p className='text-lg font-semibold'>{user.displayName}</p>
+                                    <p className='text-lg font-semibold'>{contractPersonName || "Participant"}</p>
                                 </li>
                                 <li className='pointer-events-none'> <p>{user.email}</p></li>
-                               
-                                <li><button onClick={handleLogout} className="btn rounded-full bg-blue-500 text-white border-0 btn-sm mt-2"> Signout</button></li>
+
+                                <li><button onClick={handleLogout} className="btn rounded-lg bg-purple-600 text-white border-0 btn-sm mt-2"> Signout</button></li>
                             </ul> </div> : <div className='flex gap-2'>
-                            <NavLink to='/' className="btn rounded-full  bg-blue-500 text-white border-0">Login</NavLink>
-                            <Link to='/register' className="btn rounded-full">Register</Link>
+                            <NavLink to='/auth/login' className="btn rounded-lg  bg-purple-600 text-white border-0">Login</NavLink>
+                            <Link to='/auth/register' className="btn rounded-full">Register</Link>
                         </div>
                     }
                 </div>
@@ -140,43 +175,7 @@ const DashboardLayout = () => {
                 <Outlet></Outlet>
             </div>
 
-            <footer className="w-full bg-gray-50 text-black py-12 mt-20">
-                <div className="w-full md:w-9/12 mx-auto px-4">
-                    {/* Main Footer Links */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
-                        {footerSections.map((section, index) => (
-                            <div key={index} className="text-center md:text-left">
-                                <h3 className="font-semibold text-black mb-4 text-sm uppercase tracking-wide">
-                                    {section.title}
-                                </h3>
-                                <ul className="space-y-2">
-                                    {section.links.map((link, linkIndex) => (
-                                        <li key={linkIndex}>
-                                            <a href="#" className="text-gray-500  text-sm transition-colors">
-                                                {link}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Bottom Section */}
-                    <div className="border-t border-gray-400 pt-8">
-                        <div className="flex flex-col md:flex-row justify-between items-center">
-                            <div className="flex items-center mb-4 md:mb-0">
-                                <span className="text-2xl font-bold mr-2">SDS</span>
-                            </div>
-                            <div className="text-center md:text-right">
-                                <p className="text-gray-500 text-sm">
-                                    © 2025 Sydney Disability Support. All rights reserved.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <Footer></Footer>
 
         </div>
     );
