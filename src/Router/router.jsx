@@ -17,6 +17,8 @@ import ServiceDetails from "../Pages/ServiceDetails/ServiceDetails";
 import AssignedService from "../Pages/AssignedService/AssignedService";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import PhoneAuth from "../Pages/Auth/PhoneAuth/PhoneAuth";
+import StaffDashboard from "../Pages/UserDashboard/StaffDashboard";
+import StaffRoute from "../routes/StaffRoute";
 
 const router = createBrowserRouter([
     {
@@ -72,7 +74,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "assignedService",
-                Component: AssignedService,
+                element: <StaffRoute><AssignedService></AssignedService> </StaffRoute> ,
             },
 
         ],

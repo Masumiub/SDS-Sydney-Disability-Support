@@ -63,8 +63,13 @@ export default function PhoneAuth() {
   };
 
   return (
-    <div className="p-4 max-w-sm mx-auto">
-      <h2 className="text-xl font-bold mb-4">Phone Login</h2>
+    <div className="p-4 max-w-sm mx-auto mt-20">
+      <div className='mb-6'>
+        <h2 className='text-3xl font-bold'>Log in</h2>
+        <p className='mt-2 text-gray-500'>Welcome back! Please enter your details.</p>
+
+        <button className="btn bg-purple-200 text-purple-900  btn-sm mt-4 border-1 border-purple-900">I’m a Participant</button>
+      </div>
 
       <form onSubmit={sendOtp}>
         <input
@@ -75,24 +80,34 @@ export default function PhoneAuth() {
           className="input w-full mb-2"
         />
         <div id="recaptcha-container"></div>
-        <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded w-full">
+        <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded w-full mt-5">
           Send OTP
         </button>
       </form>
 
       {confirmationResult && (
-        <form onSubmit={verifyOtp} className="mt-4">
-          <input
-            type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            className="input w-full mb-2"
-          />
-          <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded w-full">
-            Verify OTP
-          </button>
-        </form>
+        <>
+          <div className='mb-6 mt-6'>
+            <h2 className='text-3xl font-bold'>Verify Number</h2>
+            <p className='mt-2 text-gray-500'>To create your account lets first verify that this is your phone number.</p>
+
+          </div>
+
+
+          <form onSubmit={verifyOtp} className="mt-4">
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className="input w-full mb-2"
+            />
+            <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded w-full mt-5">
+              Verify OTP
+            </button>
+          </form>
+
+        </>
       )}
     </div>
   );

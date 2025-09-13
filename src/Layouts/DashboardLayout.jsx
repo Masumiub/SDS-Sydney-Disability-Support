@@ -6,38 +6,16 @@ import logo from '../assets/logo.png'
 import Footer from '../Components/Footer';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase.config';
-// const footerSections = [
-//     {
-//         title: 'Product',
-//         links: ['Overview', 'Features', 'Solutions', 'Tutorials', 'Pricing', 'Releases']
-//     },
-//     {
-//         title: 'Company',
-//         links: ['About us', 'Careers', 'News', 'Media kit', 'Contact']
-//     },
-//     {
-//         title: 'Resources',
-//         links: ['Blog', 'Newsletter', 'Events', 'Help centre', 'Tutorials', 'Support']
-//     },
-//     {
-//         title: 'Use cases',
-//         links: ['Startups', 'Enterprise', 'Government', 'SaaS', 'Marketplaces', 'Ecommerce']
-//     },
-//     {
-//         title: 'Social',
-//         links: ['Twitter', 'LinkedIn', 'Facebook', 'GitHub', 'AngelList', 'Dribbble']
-//     },
-//     {
-//         title: 'Legal',
-//         links: ['Terms', 'Privacy', 'Cookies', 'Licenses', 'Settings', 'Contact']
-//     }
-// ];
+import useUserRole from '../hooks/useUserRole';
+
 
 const DashboardLayout = () => {
 
     const { user, logout } = use(AuthContext);
     const [contractPersonName, setContractPersonName] = useState("");
     const navigate = useNavigate();
+
+    const { role, roleLoading } = useUserRole()
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -132,18 +110,20 @@ const DashboardLayout = () => {
                     <ul className="menu menu-horizontal px-1">
                         <li><Link to='/dashboard'>Home</Link></li>
                         <li>
-
                             <Link to='yourServices'>My Services</Link>
-
                         </li>
 
                         <li>
-
                             <Link to='requestServices'>Request Services</Link>
-
                         </li>
                         <li><Link to='serviceRequestStatus'>Status</Link></li>
-                        <li><Link to='assignedService'>Assigned</Link></li>
+
+                        {
+                            !roleLoading && role == 'staff' &&
+
+                            <li><Link to='assignedService'>Assigned</Link></li>
+
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
@@ -152,7 +132,7 @@ const DashboardLayout = () => {
                             <div className="w-10 rounded-full">
                                 <img
                                     alt="User"
-                                    src={user.photoURL} title={user ? user.displayName : 'Anonymous'} />
+                                    src={user.profile_image_url} title={user ? user.displayName : 'Anonymous'} />
                             </div>
                         </div>
                             <ul
