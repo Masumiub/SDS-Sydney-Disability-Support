@@ -48,6 +48,11 @@ const StaffDashboard = () => {
                 </div>
                 <div className="mb-10 text-center">
                     <h1 className="text-5xl font-semibold text-gray-800 mb-6">Welcome, {UserData.name || "Staff"}</h1>
+
+                    <div className='flex justify-center my-5 gap-2 p-2'>
+                       <input type="checkbox" defaultChecked className="toggle toggle-success" />
+                        <p className='text-[#6B2B77]'>Service Availability</p>
+                    </div>
                     <p className="text-gray-600">Here's a quick view of your upcoming and recent services.</p>
 
                 </div>
@@ -75,7 +80,7 @@ const StaffDashboard = () => {
                             <h2 className="text-xl font-semibold text-gray-800">Your Clients</h2>
                         </div>
                         <p className="text-gray-600 mb-4">See your booked clients.</p>
-                        <Link to='yourServices' className="inline-flex items-center text-purple-900 font-medium hover:text-purple-800 transition-colors">
+                        <Link to='yourClients' className="inline-flex items-center text-purple-900 font-medium hover:text-purple-800 transition-colors">
                             View clients <span className="ml-1">→</span>
                         </Link>
                     </div>

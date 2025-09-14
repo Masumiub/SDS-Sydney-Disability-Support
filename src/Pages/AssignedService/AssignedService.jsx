@@ -85,7 +85,7 @@ export default function AssignedService() {
         <>
 
             {/* Header Section */}
-            <div className="mb-8 p-6 mt-10">
+            <div className="mb-8 p-6 mt-10 text-center">
                 <h1 className="text-5xl font-semibold text-gray-800 mb-6">Assigned Service</h1>
                 <p className="text-gray-600">Find your assigned services here.</p>
 

@@ -8,7 +8,7 @@ const AuthLayout = () => {
         <div className='h-screen'>
             <div className='w-full mx-auto '>
 
-                <div className='flex flex-col md:flex-row gap-10'>
+                <div className='flex flex-col md:flex-row gap-3 justify-center'>
                     <div className='w-full md:w-1/2'>
                         <Link to='/'>
                             <div className='flex gap-1 items-center p-6'>
@@ -18,13 +18,19 @@ const AuthLayout = () => {
 
                             </div>
                         </Link>
-                        <div>
+
+                        <div className='h-[calc(100vh-280px)]'>
                             <Outlet></Outlet>
+                        </div>
+
+                        <div className='p-6 flex justify-between'>
+                            <p className='text-gray-400'>©Sydney Disability Support</p>
+                            <p className='text-gray-400'>info@sydneydisabilitysupport.com</p>
                         </div>
                     </div>
 
-                    <div className='w-full md:w-1/2'>
-                        <img src={AuthImg} alt="AuthImg" className='w-full' />
+                    <div className='w-full md:w-1/2 flex justify-end'>
+                        <img src={AuthImg} alt="AuthImg" className='h-screen' />
                     </div>
                 </div>
             </div>

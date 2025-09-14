@@ -97,6 +97,14 @@ const DashboardLayout = () => {
                                 </ul>
                             </li>
                             <li><a>Status</a></li>
+
+                            {
+                                !roleLoading && role == 'staff' &&
+                                <>
+                                    <li><Link to='assignedService'>Assigned</Link></li>
+                                    <li><Link to='yourClients'>Your Clients</Link></li>
+                                </>
+                            }
                         </ul>
                     </div>
                     <div className='flex gap-1 items-center'>
@@ -108,21 +116,28 @@ const DashboardLayout = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><Link to='/dashboard'>Home</Link></li>
-                        <li>
-                            <Link to='yourServices'>My Services</Link>
-                        </li>
-
-                        <li>
-                            <Link to='requestServices'>Request Services</Link>
-                        </li>
-                        <li><Link to='serviceRequestStatus'>Status</Link></li>
 
                         {
+                            !roleLoading && (role == 'support coordinator' || role == 'participant' )&&
+                            <>
+                                <li><Link to='/dashboard'>Home</Link></li>
+                                <li>
+                                    <Link to='yourServices'>My Services</Link>
+                                </li>
+
+                                <li>
+                                    <Link to='requestServices'>Request Services</Link>
+                                </li>
+                                <li><Link to='serviceRequestStatus'>Status</Link></li>
+                            </>
+                        }
+                        {
                             !roleLoading && role == 'staff' &&
-
-                            <li><Link to='assignedService'>Assigned</Link></li>
-
+                            <>
+                                <li><Link to='/dashboard'>Home</Link></li>
+                                <li><Link to='assignedService'>Assigned</Link></li>
+                                <li><Link to='yourClients'>Your Clients</Link></li>
+                            </>
                         }
                     </ul>
                 </div>

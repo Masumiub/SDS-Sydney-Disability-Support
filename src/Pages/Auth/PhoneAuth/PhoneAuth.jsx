@@ -5,6 +5,9 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { useNavigate } from "react-router";
+import Swal from 'sweetalert2'
+
+
 
 export default function PhoneAuth() {
   const [phone, setPhone] = useState("");
@@ -31,7 +34,14 @@ export default function PhoneAuth() {
   const sendOtp = async (e) => {
     e.preventDefault();
     if (!phone.startsWith("+61")) {
-      alert("Phone must start with +61");
+      //alert("Phone must start with +61");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Phone must start with +61",
+        showConfirmButton: false,
+        timer: 1500
+      });
       return;
     }
 
@@ -39,7 +49,14 @@ export default function PhoneAuth() {
       const appVerifier = setUpRecaptcha();
       const result = await signInWithPhoneNumber(auth, phone, appVerifier);
       setConfirmationResult(result);
-      alert("OTP sent ✅");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "OTP has been Sent",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
     } catch (error) {
       console.error("Failed to send OTP", error);
       alert("Failed to send OTP: " + error.message);
@@ -53,12 +70,27 @@ export default function PhoneAuth() {
 
     try {
       await confirmationResult.confirm(otp);
-      alert("Phone auth successful ✅");
+      //alert("Phone auth successful ✅");
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Login Successful!",
+        showConfirmButton: false,
+        timer: 1500
+      });
       navigate('/dashboard')
 
     } catch (error) {
       console.error("Invalid OTP", error);
-      alert("Invalid OTP");
+      //alert("Invalid OTP");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Invalid OTP!",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
@@ -68,7 +100,7 @@ export default function PhoneAuth() {
         <h2 className='text-3xl font-bold'>Log in</h2>
         <p className='mt-2 text-gray-500'>Welcome back! Please enter your details.</p>
 
-        <button className="btn bg-purple-200 text-purple-900  btn-sm mt-4 border-1 border-purple-900">I’m a Participant</button>
+        {/* <button className="btn bg-purple-200 text-purple-900  btn-sm mt-4 border-1 border-purple-900">I’m a Participant</button> */}
       </div>
 
       <form onSubmit={sendOtp}>
@@ -80,7 +112,7 @@ export default function PhoneAuth() {
           className="input w-full mb-2"
         />
         <div id="recaptcha-container"></div>
-        <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded w-full mt-5">
+        <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded-lg w-full mt-5">
           Send OTP
         </button>
       </form>
@@ -102,7 +134,7 @@ export default function PhoneAuth() {
               onChange={(e) => setOtp(e.target.value)}
               className="input w-full mb-2"
             />
-            <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded w-full mt-5">
+            <button type="submit" className="bg-[#6B2B77] text-white px-4 py-2 rounded-lg w-full mt-5">
               Verify OTP
             </button>
           </form>

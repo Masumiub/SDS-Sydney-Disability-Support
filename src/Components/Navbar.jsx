@@ -154,7 +154,7 @@ const Navbar = () => {
                                     <li><Link to='/dashboard' className="btn rounded-full bg-purple-300 text-white border-0 btn-sm hover:bg-white shadow-none" ><RiDashboard3Line size={20} />Dashboard</Link> </li>
                                     <li><button onClick={handleLogout} className="btn rounded-full bg-purple-300 text-white border-0 btn-sm mt-2"> Signout</button></li>
                                 </ul> </div> : <div className='flex gap-2'>
-                                <NavLink to='/auth/login' className="btn rounded-full  bg-purple-300 text-purple-900 border-0 shadow-none">Login</NavLink>
+                                <NavLink to='/auth/phone' className="btn rounded-full  bg-purple-300 text-purple-900 border-0 shadow-none">Login</NavLink>
                                 <Link to='/auth/register' className="btn rounded-full bg-purple-300 text-purple-900 border-0 shadow-none">Register</Link>
                             </div>
                         }

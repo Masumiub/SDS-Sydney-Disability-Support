@@ -11,7 +11,7 @@ const StaffRoute = ({children}) => {
     const {role, roleLoading} = useUserRole();
 
     if(loading|| roleLoading){
-        return <p>Loading...</p>
+        return <p className='text-center'><span className="loading loading-spinner text-primary"></span></p>
     }
 
     if(!user || role!== 'staff'){

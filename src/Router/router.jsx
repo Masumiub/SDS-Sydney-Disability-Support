@@ -19,6 +19,9 @@ import PrivateRoutes from "../routes/PrivateRoutes";
 import PhoneAuth from "../Pages/Auth/PhoneAuth/PhoneAuth";
 import StaffDashboard from "../Pages/UserDashboard/StaffDashboard";
 import StaffRoute from "../routes/StaffRoute";
+import YourClients from "../Pages/YourClients/YourClients";
+import PreviousReferred from "../Pages/PreviousReferred/PreviousReferred";
+import ReferralForm from "../Pages/ReferralForm/ReferralForm";
 
 const router = createBrowserRouter([
     {
@@ -74,7 +77,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "assignedService",
-                element: <StaffRoute><AssignedService></AssignedService> </StaffRoute> ,
+                element: <StaffRoute><AssignedService></AssignedService> </StaffRoute>,
+            },
+            {
+                path: "yourClients",
+                element: <StaffRoute><YourClients></YourClients> </StaffRoute>,
+            },
+            {
+                path: "previousReferred",
+                element: <PreviousReferred></PreviousReferred>,
+            },
+            {
+                path: "referralForm",
+                element: <ReferralForm></ReferralForm>,
             },
 
         ],
