@@ -124,7 +124,11 @@ const UserDashboard = () => {
                             </div>
 
                             <ReadyToApply></ReadyToApply>
-                            <FAQs></FAQs>
+
+                            <div className='px-4'>
+                                <FAQs></FAQs>
+                            </div>
+
                             <ContactCta></ContactCta>
                         </div>
                     ) : role === "support coordinator" ? (

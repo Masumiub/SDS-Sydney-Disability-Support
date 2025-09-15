@@ -44,108 +44,124 @@ export default function profileProfile({ profile }) {
                 </div>
             </div>
 
+            <div className="px-5">
 
-            {/* About Me */}
-            {profile.about_me && (
-                <p className="mt-2">
-                    <span className="font-semibold">About me:</span> {profile.about_me}
-                </p>
-            )}
+                <div className="py-2">
+                    {/* About Me */}
+                    {profile.about_me && (
+                        <p className="mt-2">
+                            <span className="font-semibold">About me:</span> {profile.about_me}
+                        </p>
+                    )}
+                </div>
 
-            {/* Address */}
-            {profile.address_model?.address && (
-                <div className="flex gap-2 items-center">
+                <div className="py-2">
+                    {/* Address */}
+                    {profile.address_model?.address && (
+                        <div className="flex gap-2 items-center">
+                            <div>
+                                <GrLocation className="text-purple-600" size={20} />
+                            </div>
+                            <div>
+                                <span className="font-semibold">Address:</span>{" "}
+                                {profile.address_model.address}
+                                {profile.address_model.address_url && (
+                                    <a
+                                        href={profile.address_model.address_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 ml-2"
+                                    >
+                                        View on map
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="py-2">
+                    {/* Hobbies */}
+                    {profile.hobbies?.length > 0 && (
+                        <div className="flex gap-2 items-center">
+                            <div>
+                                <FaRegHeart className="text-purple-600" size={20} />
+                            </div>
+                            <div>
+                                <span className="font-semibold">Hobbies:</span>{" "}
+                                {profile.hobbies.join(", ")}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="py-2">
+                    {/* Languages */}
+                    {profile.languages?.length > 0 && (
+                        <div className="flex gap-2 items-center">
+                            <div>
+                                <IoLanguage className="text-purple-600" size={20} />
+                            </div>
+                            <div>
+                                <span className="font-semibold">Languages:</span>{" "}
+                                {profile.languages.join(", ")}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="py-2">
+                    {/* Compliance Documents */}
                     <div>
-                        <GrLocation className="text-purple-600" size={20} />
-                    </div>
-                    <div>
-                        <span className="font-semibold">Address:</span>{" "}
-                        {profile.address_model.address}
-                        {profile.address_model.address_url && (
-                            <a
-                                href={profile.address_model.address_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 ml-2"
-                            >
-                                View on map
-                            </a>
-                        )}
+                        <div className="flex gap-2 items-start">
+                            <div>
+                                <IoDocumentsOutline className="text-purple-600" size={20} />
+                            </div>
+
+                            <div>
+                                <h3 className="font-semibold">Compliance Documents:</h3>
+                                <ul className="list-disc list-inside">
+                                    {Object.entries(profile.compliance_documents || {}).map(
+                                        ([docName, value]) => (
+                                            <li key={docName}>
+                                                {docName.replace(/_/g, " ")}:{" "}
+                                                <span className={value ? "text-green-600" : "text-red-600"}>
+                                                    {value ? "✔️ Yes" : "❌ No"}
+                                                </span>
+                                            </li>
+                                        )
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            )}
 
-            {/* Hobbies */}
-            {profile.hobbies?.length > 0 && (
-                <div className="flex gap-2 items-center">
-                    <div>
-                        <FaRegHeart className="text-purple-600" size={20} />
-                    </div>
-                    <div>
-                        <span className="font-semibold">Hobbies:</span>{" "}
-                        {profile.hobbies.join(", ")}
-                    </div>
-                </div>
-            )}
-
-            {/* Languages */}
-            {profile.languages?.length > 0 && (
-                <div className="flex gap-2 items-center">
-                    <div>
-                        <IoLanguage className="text-purple-600" size={20} />
-                    </div>
-                    <div>
-                        <span className="font-semibold">Languages:</span>{" "}
-                        {profile.languages.join(", ")}
-                    </div>
-                </div>
-            )}
-
-            {/* Compliance Documents */}
-            <div>
-                <div className="flex gap-2 items-start">
-                    <div>
-                        <IoDocumentsOutline className="text-purple-600" size={20} />
-                    </div>
-
-                    <div>
-                        <h3 className="font-semibold">Compliance Documents:</h3>
-                        <ul className="list-disc list-inside">
-                            {Object.entries(profile.compliance_documents || {}).map(
-                                ([docName, value]) => (
-                                    <li key={docName}>
-                                        {docName.replace(/_/g, " ")}:{" "}
-                                        <span className={value ? "text-green-600" : "text-red-600"}>
-                                            {value ? "✔️ Yes" : "❌ No"}
-                                        </span>
-                                    </li>
-                                )
-                            )}
-                        </ul>
-                    </div>
+                <div className="py-2">
+                    {/* Contract Persons */}
+                    {profile.contract_persons?.length > 0 && (
+                        <div className="flex gap-2 items-start">
+                            <div>
+                                <MdOutlinePersonOutline className="text-purple-600" size={20} />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">Contract Persons:</h3>
+                                <ul className="list-disc list-inside">
+                                    {profile.contract_persons.map((person, idx) => (
+                                        <li key={idx}>
+                                            {person.name} ({person.relation_with_profile}) –{" "}
+                                            {person.email}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
             </div>
 
-            {/* Contract Persons */}
-            {profile.contract_persons?.length > 0 && (
-                <div className="flex gap-2 items-start">
-                    <div>
-                        <MdOutlinePersonOutline className="text-purple-600" size={20}/>
-                    </div>
-                    <div>
-                        <h3 className="font-semibold">Contract Persons:</h3>
-                        <ul className="list-disc list-inside">
-                            {profile.contract_persons.map((person, idx) => (
-                                <li key={idx}>
-                                    {person.name} ({person.relation_with_profile}) –{" "}
-                                    {person.email}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

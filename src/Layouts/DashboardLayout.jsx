@@ -82,27 +82,25 @@ const DashboardLayout = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li><a>Home</a></li>
-                            <li>
-                                <a>My Services</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
 
-                            <li>
-                                <Link to='requestServices'>Request Services</Link>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Status</a></li>
+                            {
+                                !roleLoading && (role == 'support coordinator' || role == 'participant') &&
+                                <>
+                                    <li><Link to='/dashboard'>Home</Link></li>
+                                    <li>
+                                        <Link to='yourServices'>My Services</Link>
+                                    </li>
 
+                                    <li>
+                                        <Link to='requestServices'>Request Services</Link>
+                                    </li>
+                                    <li><a>Status</a></li>
+                                </>
+                            }
                             {
                                 !roleLoading && role == 'staff' &&
                                 <>
+                                 <li><Link to='/dashboard'>Home</Link></li>
                                     <li><Link to='assignedService'>Assigned</Link></li>
                                     <li><Link to='yourClients'>Your Clients</Link></li>
                                 </>
@@ -120,7 +118,7 @@ const DashboardLayout = () => {
                     <ul className="menu menu-horizontal px-1">
 
                         {
-                            !roleLoading && (role == 'support coordinator' || role == 'participant' )&&
+                            !roleLoading && (role == 'support coordinator' || role == 'participant') &&
                             <>
                                 <li><Link to='/dashboard'>Home</Link></li>
                                 <li>
@@ -155,11 +153,11 @@ const DashboardLayout = () => {
                             <ul
                                 className="menu dropdown-content bg-base-200 rounded-box z-1 shadow-lg">
                                 <li className='pointer-events-none'>
-                                    <p className='text-lg font-semibold'>{contractPersonName || userData?.name ||"Participant"}</p>
+                                    <p className='text-lg font-semibold'>{contractPersonName || userData?.name || "Participant"}</p>
                                 </li>
                                 <li className='pointer-events-none'> <p>{userData?.email}</p></li>
-                                
-                                <li><Link to='manageProfile'  className="btn rounded-lg bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Manage Profile</Link></li>
+
+                                <li><Link to='manageProfile' className="btn rounded-lg bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Manage Profile</Link></li>
 
                                 <li><button onClick={handleLogout} className="btn rounded-lg bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Signout</button></li>
                             </ul> </div> : <div className='flex gap-2'>

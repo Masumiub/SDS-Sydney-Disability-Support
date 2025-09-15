@@ -2,11 +2,11 @@ import React from 'react';
 import logo from '../assets/logo.png';
 import { Link, Outlet } from 'react-router';
 import AuthImg from '../assets/AuthImg.png'
-
+import AuthChildImg from '../assets/AuthChildImg.png'
 const AuthLayout = () => {
     return (
-        <div className='h-screen'>
-            <div className='w-full mx-auto '>
+        <div className=''>
+            <div className='w-full mx-auto'>
 
                 <div className='flex flex-col md:flex-row gap-3 justify-center'>
                     <div className='w-full md:w-1/2'>
@@ -19,19 +19,20 @@ const AuthLayout = () => {
                             </div>
                         </Link>
 
-                        <div className='h-[calc(100vh-50px)]'>
+                        <div className='h-[calc(100vh-250px)]'>
                             <Outlet></Outlet>
                         </div>
+                        <div className='p-6 flex justify-between'>
+                            <p className='text-gray-400 text-xs'>©Sydney Disability Support</p>
+                            <p className='text-gray-400 text-xs'>info@sydneydisabilitysupport.com</p>
+                        </div>
 
-                        {/* <div className='p-6 flex justify-between'>
-                            <p className='text-gray-400'>©Sydney Disability Support</p>
-                            <p className='text-gray-400'>info@sydneydisabilitysupport.com</p>
-                        </div> */}
                     </div>
 
-                    <div className='w-full md:w-1/2 flex justify-end'>
-                        <img src={AuthImg} alt="AuthImg" className='h-screen' />
+                    <div className='w-full md:w-1/2 flex justify-center'>
+                        <img src={AuthChildImg} alt="AuthImg" className='h-screen w-full object-cover hidden md:block rounded-bl-4xl' />
                     </div>
+
                 </div>
             </div>
         </div>

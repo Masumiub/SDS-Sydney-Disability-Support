@@ -3,7 +3,8 @@ import { IoLogoFacebook } from 'react-icons/io5';
 import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#6B2B77] text-white pt-20 pb-8 mt-10 rounded-tl-4xl ">
+    <footer className="w-full bg-[#6B2B77] text-white pt-20 pb-8 mt-10 rounded-tl-4xl px-5 md:px-0">
+
       <div className="w-full md:w-9/12 mx-auto px-4">
 
 

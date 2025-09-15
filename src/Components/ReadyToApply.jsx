@@ -4,7 +4,7 @@ import readyserviceImg from '../assets/readyservice.png'
 
 const ReadyToApply = () => {
   return (
-    <div className="w-full  py-17">
+    <div className="w-full py-17 px-8">
       <div className="w-full mx-auto flex flex-col md:flex-row gap-10 items-center">
 
         <div className="w-full md:w-1/2">
@@ -46,7 +46,7 @@ const ReadyToApply = () => {
         </div>
        
         <div className='w-full md:w-1/2'>
-              <img src={readyserviceImg} alt="readyserviceImg" className='w-full'/>
+              <img src={readyserviceImg} alt="readyserviceImg" className='w-full rounded-2xl'/>
         </div>
       </div>
     </div>

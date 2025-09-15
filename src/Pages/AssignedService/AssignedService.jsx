@@ -93,7 +93,7 @@ export default function AssignedService() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-6">
                 {/* Left panel */}
-                <div className="col-span-1 border-1 border-gray-200 p-3 rounded-2xl">
+                <div className="col-span-3 lg:col-span-1 border-1 border-gray-200 p-3 rounded-2xl">
                     <button className="bg-[#6B2B77] text-white px-4 py-2 rounded mb-4">
                         + Add New Event
                     </button>
@@ -110,7 +110,7 @@ export default function AssignedService() {
                 </div>
 
                 {/* Calendar */}
-                <div className="col-span-3 border-1 border-gray-200 p-3 rounded-2xl">
+                <div className="col-span-3 lg:col-span-3 border-1 border-gray-200 p-3 rounded-2xl">
                     <Calendar
                         localizer={localizer}
                         events={events}
