@@ -16,29 +16,24 @@ export default function profileProfile({ profile }) {
     return (
         <div className=" mx-auto bg-white  space-y-4">
 
-            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-purple-100 px-6 my-6">
+            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl px-6 my-6 bg-gradient-to-r from-[#6B2B77] to-[#9041b2]">
                 <img
                     src={profile.profile_image_url || "https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg"}
                     alt={profile.name}
-                    className="w-28 h-28 rounded-full border-4 border-purple-600"
+                    className="w-28 h-28 rounded-full border-2 border-white opacity-80 p-2"
                 />
-                <h2 className="text-2xl font-bold">{profile.name}</h2>
+                <h2 className="text-2xl font-bold text-white">{profile.name}</h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-1">
 
-                    <div className="flex items-center gap-2 text-gray-700 bg-purple-200 rounded-2xl px-4 py-4">
-                        <MdOutlineMail className="text-purple-600" size={20} />
-                        <span>{profile.email}</span>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-gray-700 bg-purple-200 rounded-2xl px-4 py-4">
-                        <FiPhone className="text-purple-600" size={20} />
+                    <div className="flex items-center gap-2 text-white ">
+                        <FiPhone className="text-white" size={20} />
                         <span>{profile.phone_number}</span>
                     </div>
 
-                    <div className="flex items-center gap-2 text-gray-700 bg-purple-200 rounded-2xl px-4 py-4">
-                        <GrStatusGood className="text-purple-600" size={20} />
-                        <span>{profile.account_status}</span>
+                    <div className="flex items-center gap-2 text-white justify-center">
+                        <GrStatusGood className="text-white" size={20} />
+                        <span>PARTICIPANT</span>
                     </div>
 
                 </div>
@@ -60,7 +55,7 @@ export default function profileProfile({ profile }) {
                     {profile.address_model?.address && (
                         <div className="flex gap-2 items-center">
                             <div>
-                                <GrLocation className="text-purple-600" size={20} />
+                                <GrLocation className="text-[#6B2B77]" size={20} />
                             </div>
                             <div>
                                 <span className="font-semibold">Address:</span>{" "}
@@ -80,12 +75,18 @@ export default function profileProfile({ profile }) {
                     )}
                 </div>
 
+
+                <div className="flex items-center gap-2 py-2">
+                    <MdOutlineMail className="text-[#6B2B77]" size={20} />
+                   <p><span className="font-bold"> Email: </span>{profile.email}</p> 
+                </div>
+
                 <div className="py-2">
                     {/* Hobbies */}
                     {profile.hobbies?.length > 0 && (
                         <div className="flex gap-2 items-center">
                             <div>
-                                <FaRegHeart className="text-purple-600" size={20} />
+                                <FaRegHeart className="text-[#6B2B77]" size={20} />
                             </div>
                             <div>
                                 <span className="font-semibold">Hobbies:</span>{" "}
@@ -100,7 +101,7 @@ export default function profileProfile({ profile }) {
                     {profile.languages?.length > 0 && (
                         <div className="flex gap-2 items-center">
                             <div>
-                                <IoLanguage className="text-purple-600" size={20} />
+                                <IoLanguage className="text-[#6B2B77]" size={20} />
                             </div>
                             <div>
                                 <span className="font-semibold">Languages:</span>{" "}
@@ -115,7 +116,7 @@ export default function profileProfile({ profile }) {
                     <div>
                         <div className="flex gap-2 items-start">
                             <div>
-                                <IoDocumentsOutline className="text-purple-600" size={20} />
+                                <IoDocumentsOutline className="text-[#6B2B77]" size={20} />
                             </div>
 
                             <div>
@@ -143,7 +144,7 @@ export default function profileProfile({ profile }) {
                     {profile.contract_persons?.length > 0 && (
                         <div className="flex gap-2 items-start">
                             <div>
-                                <MdOutlinePersonOutline className="text-purple-600" size={20} />
+                                <MdOutlinePersonOutline className="text-[#6B2B77]" size={20} />
                             </div>
                             <div>
                                 <h3 className="font-semibold">Contract Persons:</h3>

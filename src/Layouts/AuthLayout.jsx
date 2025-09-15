@@ -3,6 +3,9 @@ import logo from '../assets/logo.png';
 import { Link, Outlet } from 'react-router';
 import AuthImg from '../assets/AuthImg.png'
 import AuthChildImg from '../assets/AuthChildImg.png'
+import './AuthLayout.css'
+
+
 const AuthLayout = () => {
     return (
         <div className=''>
@@ -19,7 +22,7 @@ const AuthLayout = () => {
                             </div>
                         </Link>
 
-                        <div className='h-[calc(100vh-250px)]'>
+                        <div className='h-screen'>
                             <Outlet></Outlet>
                         </div>
                         <div className='p-6 flex justify-between'>
@@ -30,7 +33,17 @@ const AuthLayout = () => {
                     </div>
 
                     <div className='w-full md:w-1/2 flex justify-center'>
-                        <img src={AuthChildImg} alt="AuthImg" className='h-screen w-full object-cover hidden md:block rounded-bl-4xl' />
+                        {/* <img src={AuthChildImg} alt="AuthImg" className='h-screen w-full object-cover hidden md:block rounded-bl-4xl' /> */}
+                        <div className="container">
+                            <div className="image-container hidden md:block">
+                                <img src={AuthChildImg} alt="Happy family" className="h-screen w-full object-cover hidden md:block rounded-bl-4xl"/>
+                                    <div className="overlay rounded-bl-4xl">
+                                        <div className="quote">"From the very first interaction, we felt supported and understood. The staff's dedication and genuine care have been a blessing for our family."</div>
+                                        <div className="attribution">Anna L.</div>
+                                        <div className="attribution name">Mother of Client</div>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

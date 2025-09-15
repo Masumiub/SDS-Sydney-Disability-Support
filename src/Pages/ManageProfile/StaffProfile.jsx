@@ -11,16 +11,16 @@ const StaffProfile = ({ profile }) => {
     return (
         <div className="w-full mx-auto rounded-2xl p-3">
             {/* Header */}
-            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-purple-100 px-6">
+            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl px-6 bg-gradient-to-r from-[#6B2B77] to-[#9041b2] mt-3">
                 <img
                     src={profile.profile_image_url || "https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg"}
                     alt={profile.name}
-                    className="w-28 h-28 rounded-full border-4 border-purple-600"
+                    className="w-28 h-28 rounded-full border-4 border-white p-2"
                 />
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold">{profile.name}</h1>
-                    <p className="text-gray-600 capitalize">{profile.type}</p>
-                    <p className="text-sm text-green-600 font-medium">
+                    <h1 className="text-2xl font-bold text-white">{profile.name}</h1>
+                    <p className="text-white capitalize">{profile.type}</p>
+                    <p className="text-sm text-white font-medium">
                         {profile.account_status}
                     </p>
                 </div>
@@ -33,17 +33,17 @@ const StaffProfile = ({ profile }) => {
 
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <MdOutlineMail className="text-purple-600" size={25}/>
+                        <MdOutlineMail className="text-[#6B2B77]" size={25}/>
                         <span>{profile.email}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <FiPhone className="text-purple-600" size={25}/>
+                        <FiPhone className="text-[#6B2B77]" size={25}/>
                         <span>{profile.phone_number}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <GrLocation className="text-purple-600" size={35}/>
+                        <GrLocation className="text-[#6B2B77]" size={35}/>
                         <a
                             href={profile.address_model?.address_url}
                             target="_blank"
@@ -83,7 +83,7 @@ const StaffProfile = ({ profile }) => {
             <div className="mt-6 grid grid-cols-2 gap-6">
                 <div>
                     <h2 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                        <FaLanguage className="text-purple-600" /> Languages
+                        <FaLanguage className="text-[#6B2B77]" /> Languages
                     </h2>
                     <ul className="list-disc list-inside text-gray-700">
                         {profile.languages?.map((lang, i) => (
@@ -93,7 +93,7 @@ const StaffProfile = ({ profile }) => {
                 </div>
                 <div>
                     <h2 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                        <FaHeart className="text-purple-600" /> Hobbies
+                        <FaHeart className="text-[#6B2B77]" /> Hobbies
                     </h2>
                     <ul className="list-disc list-inside text-gray-700">
                         {profile.hobbies?.map((hobby, i) => (

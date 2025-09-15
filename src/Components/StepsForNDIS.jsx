@@ -4,7 +4,7 @@ import stepsImg from '../assets/family with a disabled child-amico.png'
 
 const StepsForNDIS = () => {
     return (
-        <div className='py-20'>
+        <div className='py-20 px-6'>
             <div className='flex flex-col gap-10 md:flex-row items-center'>
                 <div className='w-full md:w-1/2'>
                     <h2 className='text-3xl font-bold text-[#6B2B77]'> Steps on becoming NDIS Participant at Sydney Disability Support.</h2>

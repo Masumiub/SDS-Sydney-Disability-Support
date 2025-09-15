@@ -3,7 +3,7 @@ import icon from '../assets/community-engagement.png'
 
 const OurServices = () => {
     return (
-        <div>
+        <div className='px-6'>
             <h2 className='text-3xl font-bold text-[#6B2B77]'>Our Services and Offerings.</h2>
 
             <p className='mt-10 text-gray-500'>We offer a range of NDIS support categories to assist you.</p>

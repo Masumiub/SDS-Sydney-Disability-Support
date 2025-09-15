@@ -100,42 +100,42 @@ const Register = () => {
     };
 
 
-    const handleSignInWithGoogle = () => {
-        signInWithGoogle()
-            .then(async result => {
-                const user = result.user;
-                //console.log(result.user);
+    // const handleSignInWithGoogle = () => {
+    //     signInWithGoogle()
+    //         .then(async result => {
+    //             const user = result.user;
+    //             //console.log(result.user);
 
-                const userInfo = {
-                    email: user.email,
-                    name: user.displayName,
-                    role: 'user',
-                    created_at: new Date().toISOString(),
-                    last_log_in: new Date().toISOString()
-                }
+    //             const userInfo = {
+    //                 email: user.email,
+    //                 name: user.displayName,
+    //                 role: 'user',
+    //                 created_at: new Date().toISOString(),
+    //                 last_log_in: new Date().toISOString()
+    //             }
 
-                const res = await axiosInstance.post('/users', userInfo);
+    //             const res = await axiosInstance.post('/users', userInfo);
 
-                navigate('/')
+    //             navigate('/')
 
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Welcome to Tournest!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            })
-            .catch(error => {
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Failed to signin with google!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            })
-    }
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: "success",
+    //                 title: "Welcome to Tournest!",
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             });
+    //         })
+    //         .catch(error => {
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: "error",
+    //                 title: "Failed to signin with google!",
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             });
+    //         })
+    // }
 
     const handleImageUpload = async (e) => {
         const image = e.target.files[0];
@@ -154,10 +154,8 @@ const Register = () => {
 
     return (
         <div className=''>
-            <div className=''>
-            </div>
 
-            <div className="flex  gap-5 rounded-2xl ">
+            <div className="flex gap-5 rounded-2xl ">
                 <div className='w-full '>
 
                     <div className="card bg-base-100 w-full max-w-sm shrink-0  mx-auto">
@@ -165,59 +163,66 @@ const Register = () => {
                         <div className="card-body">
 
                             <div className=''>
-                                <h1 className='font-bold text-2xl'>Sign up</h1>
-                                <p className='mt-3'>Start your 30-day free trial. </p>
+                                <h1 className='font-bold text-2xl'>Create Account</h1>
+                                <p className='mt-2'>Sign up to create your account </p>
                             </div>
 
 
                             <fieldset className="fieldset">
                                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                                    <label className="label mt-2 mb-2">Name*</label>
-                                    <input type="text" className="input w-full " placeholder="Name" name='name' {...register('name', { required: true })} />
-                                    {nameError && <p className='text-red-500'>{nameError}</p>}
-
-                                    <label className="label mt-2 mb-2">Upload Photo</label>
-                                    <input type="file" className="input w-full " placeholder="Photo URL" name='photoURL' onChange={handleImageUpload} required />
-
-                                    {/* <label className="label mt-2 mb-2">Phone Number</label>
-                                <input type="text" className="input w-full " placeholder="Phone Number" name='phoneNumber' required /> */}
-
-                                    <label className="label mt-2 mb-2">Email*</label>
-                                    <input type="email" className="input w-full " placeholder="Email" name='email' {...register('email', { required: true })} />
-                                    {
-                                        errors.email?.type === 'required' && <p className='text-red-500'>Email is required!</p>
-                                    }
-
-                                    <label className="label mt-2 mb-2">Password*</label>
-
-                                    <div className='relative'>
-                                        <input type={showPassword ? 'text' : 'password'}
-                                            className="input w-full " placeholder="Password" name='password' {...register('password', { required: true, minLength: 6 })} />
-
-
-                                        <button onClick={() => { setShowPassword(!showPassword) }}
-                                            className='btn btn-xs absolute top-2 right-2 border-0' type="button"> {showPassword ? <IoEyeOff size={20} /> : <IoEye size={20} />} </button>
+                                    <div className='flex justify-center h-25 w-25 rounded-full bg-purple-100 mx-auto p-2 mt-3'>
+                                        <div className='text-center'>
+                                            <div className='flex justify-center'>
+                                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-12 h-12 rounded-full opacity-30'/>
+                                            </div>
+                                            <p className='text-xs text-gray-500'>Add Profile Picture</p>
+                                        </div>
                                     </div>
 
-                                    {passwordError && <p className='text-red-500'>{passwordError}</p>}
+                                    <label className="label mt-2 mb-2">Name*</label>
+                                    <input type="text" className="input w-full " placeholder="Full Name" name='name' {...register('name', { required: true })} />
+                                    {nameError && <p className='text-red-500'>{nameError}</p>}
 
 
-                                    <label className="label mt-2 mb-2">
-                                        <input type="checkbox" {...register('terms')} className="checkbox mr-2" />
-                                        Accept the Terms and Conditions.
-                                    </label>
+                                    <label className="label mt-2 mb-2">Address</label>
+                                    <input type="text" className="input w-full " placeholder="Select an address" name='address' required />
+
+                                    <label className="label mt-2 mb-2">Phone Number*</label>
+                                    <input type="text" className="input w-full " placeholder="Phone Number" name='number' {...register('number', { required: true })} />
+                                    {
+                                        errors.email?.type === 'required' && <p className='text-red-500'>Number is required!</p>
+                                    }
+
+                                    <label className="label mt-2 mb-2">Email*</label>
+                                    <input type="email" className="input w-full " placeholder="Please enter email" name='email' {...register('email', { required: true })} />
+
+
+                                    <label className="label mt-2 mb-2">Language</label>
+                                    <select className="select w-full text-gray-400">
+                                        <option>English</option>
+                                        <option>Bangla</option>
+                                        <option>Arabic</option>
+                                    </select>
+
+                                    <label className="label mt-2 mb-2">Hobby</label>
+                                    <select className="select w-full text-gray-400">
+                                        <option>Swimming</option>
+                                        <option>Cycling</option>
+                                        <option>Gradening</option>
+                                    </select>
+
 
                                     <button className="btn rounded-lg bg-[#6B2B77] text-white border-0 mt-6 w-full" type='submit'>Create account</button>
 
-                                    <button onClick={handleSignInWithGoogle} className="btn mt-4 w-full rounded-lg" type='submit'><FcGoogle />Continue with Google</button>
+                                    {/* <button onClick={handleSignInWithGoogle} className="btn mt-4 w-full rounded-lg" type='submit'><FcGoogle />Continue with Google</button> */}
                                 </form>
 
                             </fieldset>
 
-                            <div className='text-center'>
+                            <div className='text-center mt-4'>
                                 <p>Already have an account? <Link to='/auth/login' className='text-blue-500'>Log in</Link> </p>
-                                
+
                             </div>
 
                         </div>

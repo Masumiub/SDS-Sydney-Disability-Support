@@ -3,7 +3,7 @@ import React from 'react';
 const YourRights = () => {
     return (
         <div>
-            <div className=' my-20'>
+            <div className='px-6 my-20'>
 
                 <h2 className='text-3xl text-[#6B2B77] mb-8 font-bold'>Your Rights and Responsibilities</h2>
                 <div className='flex flex-col md:flex-row gap-10'>

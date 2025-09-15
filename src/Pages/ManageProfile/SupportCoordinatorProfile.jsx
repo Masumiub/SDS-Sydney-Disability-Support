@@ -9,16 +9,16 @@ export default function SupportCoordinatorProfile({ profile }) {
     return (
         <div className="w-full mx-auto rounded-2xl p-3">
             {/* Header */}
-            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-purple-100 px-6">
+            <div className="flex flex-col items-center gap-4 py-12 rounded-2xl bg-gradient-to-r from-[#6B2B77] to-[#9041b2] mt-3 px-6">
                 <img
                     src={profile.profile_image_url}
                     alt={profile.name}
-                    className="w-28 h-28 rounded-full border-4 border-purple-600"
+                    className="w-28 h-28 rounded-full border-4 border-white p-3"
                 />
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold">{profile.name}</h1>
-                    <p className="text-gray-600 capitalize">{profile.type}</p>
-                    <p className="text-sm text-green-600 font-medium">
+                    <h1 className="text-2xl font-bold text-white">{profile.name}</h1>
+                    <p className="text-white capitalize">{profile.type}</p>
+                    <p className="text-sm text-white font-medium">
                         {profile.account_status}
                     </p>
                 </div>

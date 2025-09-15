@@ -47,12 +47,13 @@ const Navbar = () => {
         <>
             <div className='bg-[#6B2B77]'>
 
-                <div className='w-full md:w-9/12 mx-auto bg-[#6B2B77] text-white py-4'>
+                <div className='w-full md:w-9/12 mx-auto bg-[#6B2B77] text-white py-4 px-2'>
                     <h1 className='text-center text-xs'>Sydney Disability Support is NDIS registered, ensuring truested, quality care for our community</h1>
                 </div>
             </div>
 
             <div className='w-full md:w-9/12 mx-auto'>
+
                 <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 items-center px-3 py-6'>
                     <div className='lg:col-span-2'>
                         <div className='flex gap-1 items-center'>
@@ -61,17 +62,17 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className='border-r-1 border-gray-300'>
+                    <div className='border-r-1 border-gray-300 hidden lg:block'>
                         <p className='text-gray-500 text-xs'>Mail Address</p>
                         <p className='font-bold text-xs text-gray-600'>info@sydenydisabilitySupport.com</p>
                     </div>
 
-                    <div className='border-r-1 border-gray-300'>
+                    <div className='border-r-1 border-gray-300 hidden lg:block'>
                         <p className='text-gray-500 text-xs'>Phone number</p>
                         <p className='font-bold text-xs  text-gray-600'>02 8119-5878</p>
                     </div>
 
-                    <div className=''>
+                    <div className='hidden lg:block'>
                         <p className='text-gray-500 text-xs'>Address</p>
                         <p className='font-bold text-xs text-gray-600'>Shop 9-12 138 Queen Street, Campbelttown NSW 2560</p>
                     </div>
@@ -89,7 +90,7 @@ const Navbar = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 p-2 shadow bg-[#6B2B77] text-white">
                                 <li><a>Home</a></li>
                                 <li>
                                     <a>Services and Support</a>
@@ -124,22 +125,6 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="navbar-center hidden">
-                        {/* <ul className="menu menu-horizontal px-1">
-                            <li><a>Home</a></li>
-                            <li>
-                                <details>
-                                    <summary>Services and Support</summary>
-                                    <ul className="p-2">
-                                        <li><a>Submenu 1</a></li>
-                                        <li><a>Submenu 2</a></li>
-                                    </ul>
-                                </details>
-                            </li>
-                            <li><a>Activites/Events</a></li>
-                            <li><a>Referral</a></li>
-                            <li><a>Join us</a></li>
-                            <li><a>About </a></li>
-                        </ul> */}
                     </div>
                     <div className="navbar-end gap-2">
                         {

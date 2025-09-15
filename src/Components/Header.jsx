@@ -8,7 +8,7 @@ const Header = () => {
 
         <>
             <div className='headerSection'>
-                <div className='py-40 w-full md:w-9/12 mx-auto'>
+                <div className='py-40 w-full md:w-9/12 mx-auto px-6'>
                     <div className='w-full md:w-1/2 text-white'>
 
                         <div className='bg-white rounded-2xl  w-20 p-3'>
@@ -32,7 +32,7 @@ const Header = () => {
             </div>
 
             <div className='w-full md:w-9/12 mx-auto border-b-1 border-gray-200'>
-                <div className='flex flex-col gap-10 md:flex-row py-6'>
+                <div className='flex flex-col gap-10 md:flex-row py-6 px-6'>
 
                     <div className='w-full md:w-1/2'>
                         <p className='text-gray-500'>Looking for an agent?  <span className='text-purple-800'>Talk to our specialised agent</span>  </p>
