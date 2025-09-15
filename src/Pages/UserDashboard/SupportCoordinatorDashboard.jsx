@@ -12,6 +12,7 @@ import referralImg from '../../assets/family with a disabled child-amico.png'
 import ServicesOverview from '../../Components/ServicesOverview';
 import FAQs from '../../Components/FAQs';
 import ContactCta from '../../Components/ContactCta';
+import Loading from '../../Components/Loading';
 
 const SupportCoordinatorDashboard = () => {
 
@@ -47,7 +48,7 @@ const SupportCoordinatorDashboard = () => {
     }, [user]); // re-run when user changes
 
 
-    if (roleLoading) return <p className='text-center'><span className="loading loading-spinner text-primary"></span></p>;
+    if (roleLoading) return <Loading></Loading>;
     return (
         <div>
             <div className="w-full mx-auto px-4 py-20">

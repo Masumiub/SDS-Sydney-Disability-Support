@@ -13,7 +13,7 @@ const useUserRole = () => {
 
       try {
         const token = localStorage.getItem("access-token");
-        const res = await axios.get("http://localhost:3000/api/users/role", {
+        const res = await axios.get("https://server-kappa-eight-95.vercel.app/api/users/role", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

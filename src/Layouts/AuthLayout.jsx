@@ -19,14 +19,14 @@ const AuthLayout = () => {
                             </div>
                         </Link>
 
-                        <div className='h-[calc(100vh-280px)]'>
+                        <div className='h-[calc(100vh-50px)]'>
                             <Outlet></Outlet>
                         </div>
 
-                        <div className='p-6 flex justify-between'>
+                        {/* <div className='p-6 flex justify-between'>
                             <p className='text-gray-400'>©Sydney Disability Support</p>
                             <p className='text-gray-400'>info@sydneydisabilitysupport.com</p>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className='w-full md:w-1/2 flex justify-end'>

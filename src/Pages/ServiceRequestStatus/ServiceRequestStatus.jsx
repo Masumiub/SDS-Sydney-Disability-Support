@@ -13,9 +13,9 @@ const ServiceRequestStatus = () => {
         <div>
             <div className="w-full mx-auto px-4 py-20">
                 {/* Header Section */}
-                                <div className='flex justify-center mb-6'>
-                                    <button className='btn rounded-full bg-purple-100 text-[#6B2B77] border-0 btn-xs'> <span className='bg-white rounded-full px-1'>New Updates</span> Download the app now <FaArrowRight /></button>
-                                </div>
+                <div className='flex justify-center mb-6'>
+                    <button className='btn rounded-full bg-purple-100 text-[#6B2B77] border-0 btn-xs'> <span className='bg-white rounded-full px-1'>New Updates</span> Download the app now <FaArrowRight /></button>
+                </div>
                 <div className="mb-8 text-center">
                     <h1 className="text-5xl font-semibold text-gray-800 mb-6">Service Request Status</h1>
                     <p className="text-gray-600">Stay up to date with your service requests — see what’s pending, in progress, or completed, all in one place.</p>
@@ -23,7 +23,7 @@ const ServiceRequestStatus = () => {
                 </div>
 
                 <div>
-                    <h3 className='text-2xl'>Status</h3>
+                    <h3 className='text-2xl mb-4 font-bold mt-4'>Status</h3>
                     <Tabs>
                         <TabList>
                             <Tab>Open</Tab>

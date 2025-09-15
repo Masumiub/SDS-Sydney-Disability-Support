@@ -6,6 +6,7 @@ import SkillsIcon from '../assets/SkillsDevelopmentandLifeTransitions.png';
 import TravelIcon from '../assets/TravelandTransportAssistance.png';
 import AccommodationIcon from '../assets/AccommodationandTenancySupport.png';
 import PlanIcon from '../assets/PlanManagementandCoordination.png'
+import { Link } from 'react-router';
 
 
 const ServicesOverview = () => {
@@ -78,9 +79,9 @@ const ServicesOverview = () => {
             <p className="text-gray-600 mb-4">{service.description}</p>
             
             {/* Learn More Link */}
-            <a href="#" className="inline-flex items-center text-[#6B2B77] font-medium hover:text-purple-800 transition-colors">
+            <Link to='/dashboard/requestServices' className="inline-flex items-center text-[#6B2B77] font-medium hover:text-purple-800 transition-colors">
               {service.link}
-            </a>
+            </Link>
           </div>
         ))}
       </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router';
 import useAuth from '../hooks/useAuth';
 import useUserRole from '../hooks/useUserRole';
+import Loading from '../Components/Loading';
 
 
 
@@ -11,7 +12,7 @@ const StaffRoute = ({children}) => {
     const {role, roleLoading} = useUserRole();
 
     if(loading|| roleLoading){
-        return <p className='text-center'><span className="loading loading-spinner text-primary"></span></p>
+        return <Loading></Loading>
     }
 
     if(!user || role!== 'staff'){

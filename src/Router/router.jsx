@@ -22,6 +22,7 @@ import StaffRoute from "../routes/StaffRoute";
 import YourClients from "../Pages/YourClients/YourClients";
 import PreviousReferred from "../Pages/PreviousReferred/PreviousReferred";
 import ReferralForm from "../Pages/ReferralForm/ReferralForm";
+import ManageProfile from "../Pages/ManageProfile/ManageProfile";
 
 const router = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <PrivateRoutes><UserDashboard></UserDashboard></PrivateRoutes>
+            },
+            {
+                path: "manageProfile",
+                element: <ManageProfile></ManageProfile>,
             },
             {
                 path: 'yourServices',

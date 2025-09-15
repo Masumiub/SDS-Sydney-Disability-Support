@@ -71,7 +71,7 @@ const ScheduledServices = () => {
             
             {/* See Details Button */}
             <div className="mt-6 pt-2">
-                <Link to='serviceDetails'>
+                <Link to='/dashboard/serviceDetails'>
               <button className="w-full bg-[#6B2B77] text-white py-2 px-4 rounded-md hover:bg-purple-700 transition-colors font-medium">
                 See details
               </button>

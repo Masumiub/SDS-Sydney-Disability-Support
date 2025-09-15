@@ -8,10 +8,10 @@ const Footer = () => {
 
 
         {/* Links Sections */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-8">
 
           {/* Newsletter Section */}
-          <div className="mb-8">
+          <div className="mb-8 md:col-span-2">
 
             <div>
               <h1 className='text-white font-bold text-xl'>Sydney Disability Support</h1>
@@ -63,6 +63,10 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+        </div>
+
+        <div className='flex justify-center my-5'>
+          <img src="https://sydneydisabilitysupport.com/wp-content/uploads/2021/09/ndis-logo-purple.webp" alt="sds" className='w-35 rounded-2xl bg-white p-2'/>
         </div>
 
         {/* Select and Listen & Copyright */}

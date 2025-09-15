@@ -16,21 +16,19 @@ import { Link } from 'react-router';
 import useUserRole from "../../hooks/useUserRole";
 import StaffDashboard from './StaffDashboard';
 import SupportCoordinatorDashboard from './SupportCoordinatorDashboard';
+import Loading from '../../Components/Loading';
 
 const UserDashboard = () => {
 
     const [contractPersonName, setContractPersonName] = useState("");
     const { user } = useAuth();
     const { role, roleLoading } = useUserRole();
-    console.log(role)
+    //console.log(role)
 
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                // Replace with logged-in user's ID (from auth.user.uid)
-                //const userId = "85OLMx8LsUdGjH4KiOoZk3udzD42";
-
                 if (!user?.uid) return; //  wait until user is available
 
 
@@ -52,7 +50,7 @@ const UserDashboard = () => {
     }, [user]); // re-run when user changes
 
 
-    if (roleLoading) return <p className='text-center'><span className="loading loading-spinner text-primary"></span></p>;
+    if (roleLoading) return <Loading></Loading>;
 
     return (
         <>

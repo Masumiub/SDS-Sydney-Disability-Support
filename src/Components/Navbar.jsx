@@ -4,11 +4,16 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Link, NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
+import { RiDashboard3Line } from "react-icons/ri";
+
 
 const Navbar = () => {
 
     const { user, logout } = use(AuthContext);
     const navigate = useNavigate();
+
+
+    console.log(user);
 
 
     const handleLogout = () => {
@@ -142,7 +147,7 @@ const Navbar = () => {
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="User"
-                                        src={user.photoURL} title={user ? user.displayName : 'Anonymous'} />
+                                        src={user?.photoURL || "https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg"} title={user ? user.displayName : 'Anonymous'} />
                                 </div>
                             </div>
                                 <ul
@@ -151,8 +156,8 @@ const Navbar = () => {
                                         <p className='text-lg font-semibold'>{user.displayName}</p>
                                     </li>
                                     <li className='pointer-events-none'> <p>{user.email}</p></li>
-                                    <li><Link to='/dashboard' className="btn rounded-full bg-purple-300 text-white border-0 btn-sm hover:bg-white shadow-none" ><RiDashboard3Line size={20} />Dashboard</Link> </li>
-                                    <li><button onClick={handleLogout} className="btn rounded-full bg-purple-300 text-white border-0 btn-sm mt-2"> Signout</button></li>
+                                    <li><Link to='/dashboard' className="btn rounded-full bg-[#6B2B77] text-white border-0 btn-sm hover:bg-purple-600 shadow-none" ><RiDashboard3Line size={20} />Dashboard</Link> </li>
+                                    <li><button onClick={handleLogout} className="btn rounded-full bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Signout</button></li>
                                 </ul> </div> : <div className='flex gap-2'>
                                 <NavLink to='/auth/phone' className="btn rounded-full  bg-purple-300 text-purple-900 border-0 shadow-none">Login</NavLink>
                                 <Link to='/auth/register' className="btn rounded-full bg-purple-300 text-purple-900 border-0 shadow-none">Register</Link>

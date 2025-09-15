@@ -1,6 +1,7 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth'
 import { Navigate, useLocation } from 'react-router';
+import Loading from '../Components/Loading';
 
 
 const PrivateRoutes = ({children}) => {
@@ -10,7 +11,7 @@ const PrivateRoutes = ({children}) => {
     const location = useLocation();
 
     if(loading){
-        return <h1 className='text-center'><span className="loading loading-spinner text-primary"></span></h1>;
+        return <Loading></Loading>;
     }
 
     if(!user){

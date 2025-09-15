@@ -2,6 +2,10 @@ import React from 'react';
 import ServicesOverview from '../../Components/ServicesOverview';
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaInfoCircle, FaQuestionCircle } from 'react-icons/fa';
 import imgpic from '../../assets/image 1604.png'
+import workIcon from '../../assets/Linear/School/Case Round.png'
+import calendarIcon from '../../assets/Calendar Mark.png'
+import clockIcon from '../../assets/Clock Circle.png'
+import { IoLocationOutline } from 'react-icons/io5';
 
 const ServiceDetails = () => {
     return (
@@ -18,51 +22,51 @@ const ServiceDetails = () => {
                     <div className='w-full md:w-1/2 py-5'>
                         {/* Header */}
                         <div className="mb-8">
-                            <h1 className="text-xl font-bold text-gray-800 mb-2">Skills Development and Life Transitions</h1>
+                            <p className='text-xs text-gray-500 mb-4'>SERVICE TYPE</p>
+
+
+                            <div className='flex gap-1 items-center mb-2'>
+                                <img src={workIcon} alt="workIcon" className='w-5 h-5' />
+                                <h1 className="text-gray-800">Skills Development and Life Transitions</h1>
+                            </div>
+
                         </div>
 
                         <div className="">
                             {/* Scheduled On Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                                    <FaCalendarAlt className="text-purple-600 mr-2" />
-                                    SCHEDULED ON
-                                </h2>
-                                <div className="space-y-2 text-gray-700 ml-6">
-                                    <div className="flex items-center">
-                                        <FaCalendarAlt className="text-purple-400 mr-3" />
+                            <div className="mb-8 border-t border-gray-200 pt-8">
+
+                                <p className='text-xs text-gray-500 mb-4'> SCHEDULED ON</p>
+                                <div className="space-y-2 text-gray-700">
+                                    <div className="flex items-center gap-1">
+                                        <img src={calendarIcon} alt="calendarIcon" className='w-5 h-5' />
                                         <span>July 30, 2024</span>
                                     </div>
-                                    <div className="flex items-center">
-                                        <FaClock className="text-purple-400 mr-3" />
+                                    <div className="flex items-center gap-1">
+                                        <img src={clockIcon} alt="calendarIcon" className='w-5 h-5' />
                                         <span>10:30 PM</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Details Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                                    <FaInfoCircle className="text-purple-600 mr-2" />
-                                    DETAILS
-                                </h2>
-                                <div className="text-gray-700 ml-6 space-y-3">
+                            <div className="mb-8 border-t border-gray-200 pt-8">
+
+                                <p className='text-xs text-gray-500 mb-4'> DETAILS</p>
+
+                                <div className="text-gray-700 space-y-3">
                                     <p>Looking for help regarding social participation near Sydney.</p>
                                     <p>The individual is of mid age and very much interested for SDS services.</p>
                                 </div>
                             </div>
 
                             {/* Location Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                                    <FaMapMarkerAlt className="text-purple-600 mr-2" />
-                                    LOCATION
-                                </h2>
-                                <div className="space-y-2 text-gray-700 ml-6">
-                                    <div className="flex items-center">
-                                        <div className="w-5 h-5 border-2 border-gray-400 rounded mr-3 flex items-center justify-center">
-                                            <div className="w-3 h-3 bg-gray-400 rounded-sm"></div>
-                                        </div>
+                            <div className="mb-8 border-t border-gray-200 pt-8">
+                                <p className='text-xs text-gray-500 mb-4'> LOCATION</p>
+
+                                <div className="space-y-2 text-gray-700">
+                                    <div className="flex items-center gap-1">
+                                        <IoLocationOutline size={20}/>
                                         <span>Abbotsford, VIC</span>
                                     </div>
                                 </div>
@@ -70,12 +74,10 @@ const ServiceDetails = () => {
 
                             {/* Help Section */}
                             <div className="border-t border-gray-200 pt-6">
+                                <p className='text-xs text-gray-500 mb-4'> HELP</p>
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center text-gray-600">
-                                        <FaQuestionCircle className="mr-2" />
-                                        <span>HELP</span>
-                                    </div>
-                                    <button className=" font-semibold py-2 px-4 rounded transition-colors duration-200">
+
+                                    <button className="py-2  rounded transition-colors duration-200">
                                         Contact Support
                                     </button>
                                 </div>
@@ -84,7 +86,7 @@ const ServiceDetails = () => {
                     </div>
 
                     <div className='w-full md:w-1/2'>
-                        <img src={imgpic} alt="imgpic" className='w-full'/>
+                        <img src={imgpic} alt="imgpic" className='w-full' />
                     </div>
                 </div>
 
