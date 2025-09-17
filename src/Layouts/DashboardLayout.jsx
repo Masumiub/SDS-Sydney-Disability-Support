@@ -100,7 +100,7 @@ const DashboardLayout = () => {
                             {
                                 !roleLoading && role == 'staff' &&
                                 <>
-                                 <li><Link to='/dashboard'>Home</Link></li>
+                                    <li><Link to='/dashboard'>Home</Link></li>
                                     <li><Link to='assignedService'>Assigned</Link></li>
                                     <li><Link to='yourClients'>Your Clients</Link></li>
                                 </>
@@ -150,17 +150,15 @@ const DashboardLayout = () => {
                                     src={userData.profile_image_url || "https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg"} title={user ? user.displayName : 'Anonymous'} />
                             </div>
                         </div>
-                            <ul
-                                className="menu dropdown-content bg-base-200 rounded-box z-1 shadow-lg">
-                                <li className='pointer-events-none'>
-                                    <p className='text-lg font-semibold'>{contractPersonName || userData?.name || "Participant"}</p>
-                                </li>
-                                <li className='pointer-events-none'> <p>{userData?.email}</p></li>
 
-                                <li><Link to='manageProfile' className="btn rounded-lg bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Manage Profile</Link></li>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                <li className='border-b-1 border-gray-200'><p>{contractPersonName || userData?.name || "User"}</p></li>
+                                <li className='border-b-1 border-gray-200'><p>{userData?.email}</p></li>
+                                <li className='border-b-1 border-gray-200'><Link to='manageProfile'>Manage Profile</Link></li>
+                                <li><button onClick={handleLogout}>Signout</button></li>
+                            </ul>
 
-                                <li><button onClick={handleLogout} className="btn rounded-lg bg-[#6B2B77] text-white border-0 btn-sm mt-2"> Signout</button></li>
-                            </ul> </div> : <div className='flex gap-2'>
+                        </div> : <div className='flex gap-2'>
                             <NavLink to='/auth/login' className="btn rounded-lg  bg-purple-600 text-white border-0">Login</NavLink>
                             <Link to='/auth/register' className="btn rounded-full">Register</Link>
                         </div>

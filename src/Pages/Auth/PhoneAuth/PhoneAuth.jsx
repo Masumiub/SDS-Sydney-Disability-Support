@@ -108,7 +108,7 @@
 //     }
 
 //     try {
-      
+
 //       const appVerifier = setUpRecaptcha(); // always fresh
 //       const result = await signInWithPhoneNumber(auth, phone, appVerifier);
 //       setConfirmationResult(result);
@@ -290,7 +290,7 @@ export default function PhoneAuth() {
       window.recaptchaVerifier.clear();
       window.recaptchaVerifier = null;
     }
-    
+
     // Remove any existing reCAPTCHA container
     const oldContainer = document.getElementById('recaptcha-container');
     if (oldContainer) {
@@ -301,7 +301,7 @@ export default function PhoneAuth() {
   const setUpRecaptcha = () => {
     // Clean up any existing reCAPTCHA first
     resetRecaptcha();
-    
+
     // Create new reCAPTCHA container if it doesn't exist
     let container = document.getElementById('recaptcha-container');
     if (!container) {
@@ -345,6 +345,17 @@ export default function PhoneAuth() {
       return;
     }
 
+    if (phone.length>12) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Please Provide a valid Phone Number",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
     try {
       const appVerifier = setUpRecaptcha();
       const result = await signInWithPhoneNumber(auth, phone, appVerifier);
@@ -358,10 +369,10 @@ export default function PhoneAuth() {
       });
     } catch (error) {
       console.error("Failed to send OTP", error);
-      
+
       // Reset reCAPTCHA on error
       resetRecaptcha();
-      
+
       Swal.fire({
         position: "center",
         icon: "error",
@@ -380,7 +391,7 @@ export default function PhoneAuth() {
   };
 
 
-//   // Handle OTP input
+  //   // Handle OTP input
   const handleOtpChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
       const newOtp = [...otp];
@@ -447,7 +458,7 @@ export default function PhoneAuth() {
               onChange={(e) => setPhone(e.target.value)}
               className="input w-full mb-2"
             />
-            
+
             {/* Hidden reCAPTCHA container */}
             <div id="recaptcha-container"></div>
 
@@ -469,10 +480,10 @@ export default function PhoneAuth() {
               To create your account let's first verify that this is your phone
               number.
             </p>
-            
+
             {/* Show the phone number being verified */}
             <p className="text-sm text-gray-600 mt-2">Verifying: {phone}</p>
-            
+
             {/* Back button to change phone number */}
             <button
               type="button"

@@ -10,20 +10,6 @@ import Loading from './Loading';
 import PreferredDate from './PreferredDate';
 
 const ScheduledServices = () => {
-  // const services = [
-  //   {
-  //     title: "Skills Development and Life Transitions",
-  //     date: "13 Jul",
-  //     time: "10:30 PM",
-  //     address: "Sydney, NSW"
-  //   },
-  //   {
-  //     title: "Community and Social Participation",
-  //     date: "13 Jul",
-  //     time: "10:30 PM",
-  //     address: "Sydney, NSW"
-  //   }
-  // ];
 
 
   const { user } = useAuth();

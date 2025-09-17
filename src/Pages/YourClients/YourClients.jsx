@@ -10,75 +10,134 @@ const YourClients = () => {
             </div>
 
             <div className=' p-6'>
-                <div className='bg-purple-50 p-8 my-4 rounded-2xl'>
-                    <div className='flex gap-5 items-center'>
-                        <div>
-                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-13 h-13 rounded-full border-2 border-purple-800' />
-                        </div>
-                        <div>
-                            <h2 className='font-bold text-lg'>Md Masum Musfique</h2>
-                            <p>Email: musfiquemasum@gmail.com</p>
-                            <p>+6124345345</p>
-                        </div>
-                    </div>
-                </div>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Job</th>
+                                <th>Favorite Color</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* row 1 */}
+                            <tr>
 
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                            <img
+                                                    src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">Hart Hagerty</div>
+                                            <div className="text-sm opacity-50">United States</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    Zemlak, Daniel and Leannon
+                                    <br />
+                                    <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                                </td>
+                                <td>Purple</td>
+                                <th>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </th>
+                            </tr>
+                            {/* row 2 */}
+                            <tr>
 
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                                <img
+                                                    src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">Brice Swyre</div>
+                                            <div className="text-sm opacity-50">China</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    Carroll Group
+                                    <br />
+                                    <span className="badge badge-ghost badge-sm">Tax Accountant</span>
+                                </td>
+                                <td>Red</td>
+                                <th>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </th>
+                            </tr>
+                            {/* row 3 */}
+                            <tr>
 
-                <div className='bg-purple-50 p-8 my-4 rounded-2xl'>
-                    <div className='flex gap-5 items-center'>
-                        <div>
-                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-13 h-13 rounded-full border-2 border-purple-800' />
-                        </div>
-                        <div>
-                            <h2 className='font-bold text-lg'>Md Ridwan Mahmud</h2>
-                            <p>Email: ridwanMahmud@gmail.com</p>
-                            <p>+6134543654</p>
-                        </div>
-                    </div>
-                </div>
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                                <img
+                                                    src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">Marjy Ferencz</div>
+                                            <div className="text-sm opacity-50">Russia</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    Rowe-Schoen
+                                    <br />
+                                    <span className="badge badge-ghost badge-sm">Office Assistant I</span>
+                                </td>
+                                <td>Crimson</td>
+                                <th>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </th>
+                            </tr>
+                            {/* row 4 */}
+                            <tr>
 
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                                <img
+                                                    src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">Yancy Tear</div>
+                                            <div className="text-sm opacity-50">Brazil</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    Wyman-Ledner
+                                    <br />
+                                    <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+                                </td>
+                                <td>Indigo</td>
+                                <th>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </th>
+                            </tr>
+                        </tbody>
+                        {/* foot */}
 
-                <div className='bg-purple-50 p-8 my-4 rounded-2xl'>
-                    <div className='flex gap-5 items-center'>
-                        <div>
-                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-13 h-13 rounded-full border-2 border-purple-800' />
-                        </div>
-                        <div>
-                            <h2 className='font-bold text-lg'>Md Masum Musfique</h2>
-                            <p>Email: musfiquemasum@gmail.com</p>
-                            <p>+6124345345</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className='bg-purple-50 p-8 my-4 rounded-2xl'>
-                    <div className='flex gap-5 items-center'>
-                        <div>
-                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-13 h-13 rounded-full border-2 border-purple-800' />
-                        </div>
-                        <div>
-                            <h2 className='font-bold text-lg'>Md Mughdo Nahian</h2>
-                            <p>Email: musfiquemasum@gmail.com</p>
-                            <p>+6124345345</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div className='bg-purple-50 p-8 my-4 rounded-2xl'>
-                    <div className='flex gap-5 items-center'>
-                        <div>
-                            <img src="https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg" alt="avatar" className='w-13 h-13 rounded-full border-2 border-purple-800' />
-                        </div>
-                        <div>
-                            <h2 className='font-bold text-lg'>Md Tanvir Ahmed</h2>
-                            <p>Email: musfiquemasum@gmail.com</p>
-                            <p>+6124345345</p>
-                        </div>
-                    </div>
+                    </table>
                 </div>
 
             </div>
