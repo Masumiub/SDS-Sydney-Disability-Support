@@ -23,6 +23,9 @@ import YourClients from "../Pages/YourClients/YourClients";
 import PreviousReferred from "../Pages/PreviousReferred/PreviousReferred";
 import ReferralForm from "../Pages/ReferralForm/ReferralForm";
 import ManageProfile from "../Pages/ManageProfile/ManageProfile";
+import SupportCoodinatorDocumentUpload from "../Pages/Auth/Register/SupportCoodinatorDocumentUpload";
+import Verification from "../Pages/Auth/Register/Verification";
+import StaffProfileCompletion from "../Pages/Auth/Register/StaffProfileCompletion";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +52,18 @@ const router = createBrowserRouter([
             {
                 path: "/auth/phone",
                 Component: PhoneAuth,
+            },
+            {
+                path: '/auth/SupportCoodinatorDocumentUpload',
+                Component: SupportCoodinatorDocumentUpload,
+            },
+            {
+                path: '/auth/Verification',
+                Component: Verification,
+            },
+            {
+                path: '/auth/StaffProfileCompletion',
+                Component: StaffProfileCompletion,
             }
         ],
     },
@@ -76,10 +91,10 @@ const router = createBrowserRouter([
                 path: 'serviceRequestStatus',
                 element: <PrivateRoutes><ServiceRequestStatus></ServiceRequestStatus></PrivateRoutes>
             },
-            {
-                path: 'serviceDetails',
-                element: <PrivateRoutes><ServiceDetails></ServiceDetails></PrivateRoutes>
-            },
+            // {
+            //     path: 'serviceDetails',
+            //     element: <PrivateRoutes><ServiceDetails></ServiceDetails></PrivateRoutes>
+            // },
             {
                 path: "assignedService",
                 element: <StaffRoute><AssignedService></AssignedService> </StaffRoute>,
@@ -96,6 +111,10 @@ const router = createBrowserRouter([
                 path: "referralForm",
                 element: <ReferralForm></ReferralForm>,
             },
+            {
+                path: "service/:id",   // dynamic route
+                element: <ServiceDetails />,
+            }
 
         ],
     }

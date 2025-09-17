@@ -31,17 +31,26 @@ export default function SupportCoordinatorProfile({ profile }) {
 
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <MdOutlineMail className="text-purple-600" size={25}/>
+                        <div className="w-10 h-10 bg-[#6B2B77] rounded-full flex justify-center items-center">
+                            <MdOutlineMail className="text-white" size={20} />
+                        </div>
+
                         <span>{profile.email}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <FiPhone className="text-purple-600" size={25}/>
+                        <div className="w-10 h-10 bg-[#6B2B77] rounded-full flex justify-center items-center">
+                            <FiPhone className="text-white" size={20} />
+                        </div>
+
                         <span>{profile.phone_number}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-700 bg-purple-100 rounded-2xl px-4 py-4">
-                        <GrLocation className="text-purple-600" size={35}/>
+                        <div className="w-10 h-10 bg-[#6B2B77] rounded-full flex justify-center items-center">
+                            <GrLocation className="text-white rounded-full" size={20} />
+                        </div>
+
                         <a
                             href={profile.address_model?.address_url}
                             target="_blank"

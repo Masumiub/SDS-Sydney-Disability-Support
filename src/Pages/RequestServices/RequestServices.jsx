@@ -1,178 +1,289 @@
-import React, { useEffect, useState } from 'react';
-import ServicesOverview from '../../Components/ServicesOverview';
-import imageHand from '../../assets/imagehand.png'
+import React, { useEffect, useState } from "react";
+import ServicesOverview from "../../Components/ServicesOverview";
+import imageHand from "../../assets/imagehand.png";
 import { MdCancel, MdCheckCircle } from "react-icons/md";
-import axios from 'axios';
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+
+const formatTime12 = (time24) => {
+  // time24: "14:30" -> "2:30 PM"
+  if (!time24) return "";
+  const [hh, mm] = time24.split(":").map(Number);
+  const date = new Date();
+  date.setHours(hh, mm, 0);
+  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+};
 
 const RequestServices = () => {
-    const [staffList, setStaffList] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
 
-    useEffect(() => {
-        const fetchStaff = async () => {
-            try {
-                const res = await axios.get("https://server-kappa-eight-95.vercel.app/api/users/staff");
-                setStaffList(res.data);
-            } catch (error) {
-                console.error("Error fetching staff", error);
-            }
-        };
-        fetchStaff();
-    }, []);
+  const [staffList, setStaffList] = useState([]);
+  const [serviceType, setServiceType] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedStaff, setSelectedStaff] = useState(null);
+  const [dates, setDates] = useState([]); // store ISO date strings (yyyy-mm-dd)
+  const [dateInput, setDateInput] = useState(""); // single date input value
+  const [startTime, setStartTime] = useState(""); // "14:00"
+  const [endTime, setEndTime] = useState(""); // "15:00"
+  const [genderPref, setGenderPref] = useState("Male");
+  const [address, setAddress] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-    return (
-        <div>
-            <div className="w-full mx-auto px-4 py-20">
-                {/* Header Section */}
-                <div className="mb-8 text-center border-b-1 border-gray-300 pb-20">
-                    <h1 className="text-5xl font-semibold text-gray-800 mb-6">Community and Social Participation</h1>
-                    <p className="text-gray-600">Join activities, connect with others, and build lasting social networks.</p>
+  useEffect(() => {
+    const fetchStaff = async () => {
+      try {
+        const res = await axiosSecure.get("/api/users/staff"); // your backend route
+        setStaffList(res.data);
+      } catch (err) {
+        console.error("Error fetching staff", err);
+      }
+    };
+    fetchStaff();
+  }, [axiosSecure]);
 
-                </div>
+  const addDate = () => {
+    if (!dateInput) return;
+    if (dates.includes(dateInput)) {
+      Swal.fire("Date already added");
+      return;
+    }
+    setDates((s) => [...s, dateInput]);
+    setDateInput("");
+  };
 
+  const removeDate = (d) => setDates((s) => s.filter((x) => x !== d));
 
-                <div className='flex flex-col md:flex-row gap-10 items-center'>
+  const handleSelectStaff = (staff) => {
+    setSelectedStaff(staff);
+    // close dialog if using native dialog
+    const modal = document.getElementById("my_modal_1");
+    if (modal?.close) modal.close();
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!acceptTerms) {
+      return Swal.fire({ icon: "warning", title: "Please accept terms & conditions" });
+    }
+    if (!serviceType) return Swal.fire({ icon: "error", title: "Pick a service type" });
+    if (dates.length === 0) return Swal.fire({ icon: "error", title: "Please add at least one date" });
+    if (!startTime || !endTime) return Swal.fire({ icon: "error", title: "Please set start and end times" });
 
-                    <div className="w-full md:w-1/2 px-4 py-8">
-                        {/* Header */}
-                        <div className="mb-8 ">
-                            <h1 className="text-3xl font-bold text-gray-800 mb-2">Request a Service</h1>
-                            <p className="text-gray-600">Input details of your requested service</p>
-                        </div>
+    setSubmitting(true);
+    try {
+      // prepare payload: send ISO dates (YYYY-MM-DD) and times in "h:mm A" strings
+      const payload = {
+        service_type: serviceType,
+        description,
+        selected_support_worker_id: selectedStaff?.user_id || null,
+        preferred_dates: dates, // backend will convert to Firestore Timestamps
+        time_of_day: formatTime12(startTime),
+        time_of_day_end: formatTime12(endTime),
+        gender_preference: genderPref,
+        address_model: {
+          address,
+          // address_url/lat/long optional - you can add map lookup later
+        },
+        additional_details: "", // optional
+      };
 
-                        {/* Form */}
-                        <div className="">
-                            {/* Service Type Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg  text-gray-800 mb-4">Service Type</h2>
-                                <select defaultValue="Pick a color" className="select w-full">
-                                    <option>House Cleaning And Other Household Activities</option>
-                                    <option>Short Term/Emergency Accommodation</option>
-                                    <option>Daily Living</option>
-                                    <option>House Cleaning And Other Household Activities</option>
-                                    <option>Community and Social Participation</option>
-                                    <option>House or Yard Maintenance</option>
-                                    <option>Accommodation and Tenancy Support</option>
-                                    <option>Support Coordination</option>
-                                    <option>Travel and Transport Assistance</option>
-                                    <option>Skill Development and Life Transition</option>
-                                </select>
-                            </div>
+      const res = await axiosSecure.post("/api/service-request", payload);
+      Swal.fire({ icon: "success", title: "Booking submitted", text: `ID: ${res.data.id}` });
+      // clear form or redirect
+      setServiceType("");
+      setDescription("");
+      setSelectedStaff(null);
+      setDates([]);
+      setStartTime("");
+      setEndTime("");
+      setGenderPref("Male");
+      setAddress("");
+      setAcceptTerms(false);
+    } catch (err) {
+      console.error("Failed create booking", err);
+      Swal.fire({ icon: "error", title: "Failed to submit booking" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-                            {/* Details Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg  text-gray-800 mb-4">Details</h2>
-                                <textarea className="textarea w-full" placeholder="Bio"></textarea>
-                            </div>
-
-                            <div className="mb-8">
-
-                                {/* Open the modal using document.getElementById('ID').showModal() method */}
-                                <button className=" w-full text-left input" onClick={() => document.getElementById('my_modal_1').showModal()}>Select Staff</button>
-                                <dialog id="my_modal_1" className="modal">
-                                    <div className="modal-box">
-                                        <h3 className="font-bold text-lg">Select Staff</h3>
-
-                                        {staffList.map((staff) => (
-                                            <div key={staff.user_id} className="my-4">
-                                                <div className="p-6 rounded-2xl shadow-md">
-                                                    <div className="flex gap-2">
-                                                        <div>
-                                                            <img
-                                                                src={staff.profile_image_url || "https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg0"}
-                                                                alt="avatar"
-                                                                className="w-15 h-15 rounded-full border-2 border-purple-800"
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <h1 className="font-bold text-xl">{staff.name}</h1>
-                                                            <p className="text-sm text-gray-500">{staff.about_me || "About me ..."}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="my-5">
-                                                        <div className="flex items-center justify-between text-gray-600 my-2">
-                                                            <p>First Aid Certificate</p>
-                                                            {staff.compliance_documents?.first_aid_certificate ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500"/>}
-                                                        </div>
-
-                                                        <div className="flex items-center justify-between text-gray-600 my-2">
-                                                            <p>NDIS Workers Check</p>
-                                                            {staff.compliance_documents?.ndis_workers_check ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500"/>}
-                                                        </div>
-
-                                                        <div className="flex items-center justify-between text-gray-600 my-2">
-                                                            <p>Working with Children Check</p>
-                                                            {staff.compliance_documents?.working_with_children_check ? <MdCheckCircle className="text-green-500" /> :<MdCancel className="text-gray-500"/>}
-                                                        </div>
-
-                                                        <div className="flex items-center justify-between text-gray-600 my-2">
-                                                            <p>Police Check</p>
-                                                            {staff.compliance_documents?.police_check ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500"/>}
-                                                        </div>
-
-                                                        <div className="flex items-center justify-between text-gray-600 my-2">
-                                                            {/* <p>Rating: {staff?.rating || "N/A"}</p>
-                                                            <p>{staff?.distance || "Unknown"} km</p> */}
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <button className="btn w-full bg-[#6B2B77] text-white rounded-lg">
-                                                            Select Staff
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-
-
-                                        <div className="modal-action">
-                                            <form method="dialog">
-                                                {/* if there is a button in form, it will close the modal */}
-                                                <button className="btn">Close</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </dialog>
-                            </div>
-
-                            {/* Date & Time Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg  text-gray-800 mb-4">Date & Time</h2>
-                                <input type="text" placeholder="Type here" className="input w-full" />
-                            </div>
-
-                            {/* Location Section */}
-                            <div className="mb-8">
-                                <h2 className="text-lg  text-gray-800 mb-4">Location</h2>
-                                <input type="text" placeholder="Type here" className="input w-full" />
-
-                                <div className='flex gap-2 items-center mt-8'>
-                                    <input type="checkbox" defaultChecked className="checkbox" />
-                                    <p className="text-sm text-gray-600">
-                                        You agree to our friendly <span className='underline'>privacy policy.</span>
-                                    </p>
-                                </div>
-
-                            </div>
-
-                            {/* Submit Button */}
-                            <button className="btn w-full bg-[#6B2B77] hover:bg-purple-700 text-white font-semibold  rounded-lg  transition-colors duration-200">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="w-full md:w-1/2 px-4 py-8">
-                        <img src={imageHand} alt="imageHand" className='w-full' />
-                    </div>
-                </div>
-
-                <ServicesOverview></ServicesOverview>
-            </div>
+  return (
+    <div>
+      <div className="w-full mx-auto px-4 py-20">
+        {/* Header */}
+        <div className="mb-8 text-center border-b-1 border-gray-300 pb-25">
+          <h1 className="text-5xl font-semibold text-gray-800 mb-6">Request a Service</h1>
+          <p className="text-gray-600">Input details of your requested service</p>
         </div>
-    );
+
+        <div className="flex flex-col md:flex-row gap-10 items-center">
+          <div className="w-full md:w-1/2 px-4 py-8">
+            <form onSubmit={handleSubmit}>
+              {/* Service Type */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Service Type</label>
+                <select value={serviceType} onChange={(e) => setServiceType(e.target.value)} className="select w-full">
+                  <option value="">Select service</option>
+                  <option>House Cleaning And Other Household Activities</option>
+                  <option>Short Term/Emergency Accommodation</option>
+                  <option>Daily Living</option>
+                  <option>Community and Social Participation</option>
+                  <option>House or Yard Maintenance</option>
+                  <option>Accommodation and Tenancy Support</option>
+                  <option>Support Coordination</option>
+                  <option>Travel and Transport Assistance</option>
+                  <option>Skill Development and Life Transition</option>
+                </select>
+              </div>
+
+              {/* Details */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Details</label>
+                <textarea className="textarea w-full" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe what you need" />
+              </div>
+
+              {/* Select Staff (modal) */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Select Staff </label>
+                <button type="button" className="input w-full text-left" onClick={() => document.getElementById("my_modal_1").showModal()}>
+                  {selectedStaff ? selectedStaff.name : "Choose staff "}
+                </button>
+
+                <dialog id="my_modal_1" className="modal">
+                  <div className="modal-box">
+                    <h3 className="font-bold text-lg">Select Staff</h3>
+
+                    <div className="mt-4 space-y-4 max-h-[60vh] overflow-auto">
+                      {staffList.map((s) => (
+                        <div key={s.user_id} className="p-4 rounded-lg shadow-sm border-1 border-gray-200 flex flex-col ">
+
+                          <div className="flex items-center gap-3">
+                            <img src={s.profile_image_url || "https://via.placeholder.com/48"} alt="" className="w-12 h-12 rounded-full" />
+                            <div>
+                              <div className="font-semibold">{s.name}</div>
+                              <div className="text-sm text-gray-500">{s.about_me}</div>
+                            </div>
+                          </div>
+
+
+                          <div className="my-5">
+                            <div className="flex items-center justify-between text-gray-600 my-2">
+                              <p>First Aid Certificate</p>
+                              {s.compliance_documents?.first_aid_certificate ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500" />}
+                            </div>
+
+                            <div className="flex items-center justify-between text-gray-600 my-2">
+                              <p>NDIS Workers Check</p>
+                              {s.compliance_documents?.ndis_workers_check ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500" />}
+                            </div>
+
+                            <div className="flex items-center justify-between text-gray-600 my-2">
+                              <p>Working with Children Check</p>
+                              {s.compliance_documents?.working_with_children_check ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500" />}
+                            </div>
+
+                            <div className="flex items-center justify-between text-gray-600 my-2">
+                              <p>Police Check</p>
+                              {s.compliance_documents?.police_check ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500" />}
+                            </div>
+
+                            <div className="flex items-center justify-between text-gray-600 my-2">
+                              {/* <p>Rating: {staff?.rating || "N/A"}</p>
+                                                            <p>{staff?.distance || "Unknown"} km</p> */}
+                            </div>
+                          </div>
+
+                          <div>
+                            <button type="button" className="btn btn-sm bg-[#6B2B77] text-white w-full rounded-lg my-2" onClick={() => handleSelectStaff(s)}>
+                              Select Staff
+                            </button>
+                          </div>
+
+                        </div>
+                      ))}
+                    </div>
+                    <div className="modal-backdrop mt-5">
+                      <button className="btn" onClick={() => document.getElementById("my_modal_1").close()}>
+                        Close
+                      </button>
+                    </div>
+
+                  </div>
+                </dialog>
+              </div>
+
+              {/* Date selection (add multiple) */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Preferred Dates</label>
+                <div className="flex gap-2 items-center">
+                  <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} className="input w-full" />
+                  <button type="button" className="btn" onClick={addDate}>Add</button>
+                </div>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {dates.map((d) => (
+                    <div key={d} className="px-3 py-1 bg-gray-100 rounded flex items-center gap-2">
+                      <span>{new Date(d).toLocaleDateString()}</span>
+                      <button type="button" onClick={() => removeDate(d)} className="text-red-500">✕</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Time */}
+              <div className="mb-6 grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block mb-2 font-medium">Start Time</label>
+                  <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="input w-full" />
+                </div>
+                <div>
+                  <label className="block mb-2 font-medium">End Time</label>
+                  <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="input w-full" />
+                </div>
+              </div>
+
+              {/* Gender */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Gender Preference</label>
+                <select value={genderPref} onChange={(e) => setGenderPref(e.target.value)} className="select w-full">
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                  <option>No preference</option>
+                </select>
+              </div>
+
+              {/* Address */}
+              <div className="mb-6">
+                <label className="block mb-2 font-medium">Address</label>
+                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="input w-full" placeholder="Enter address" />
+              </div>
+
+              {/* Terms */}
+              <div className="mb-6 flex items-center gap-3">
+                <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="checkbox mt-1" />
+                <div className="text-sm text-gray-600">I accept the <a className="underline">terms & conditions</a></div>
+              </div>
+
+              {/* Submit */}
+              <button type="submit" disabled={submitting} className="btn w-full bg-[#6B2B77] text-white rounded-lg">
+                {submitting ? "Submitting..." : "Submit"}
+              </button>
+            </form>
+          </div>
+
+          <div className="w-full md:w-1/2 px-4 py-8">
+            <img src={imageHand} alt="imageHand" className="w-full" />
+          </div>
+        </div>
+
+        <ServicesOverview />
+      </div>
+    </div>
+  );
 };
 
 export default RequestServices;
