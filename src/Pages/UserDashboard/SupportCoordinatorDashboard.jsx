@@ -115,10 +115,10 @@ const SupportCoordinatorDashboard = () => {
 
                         <div>
                             <h1 className='font-bold text-3xl'>Referral</h1>
-                            <p className='text-gray-600 text-sm my-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit facilis nesciunt eligendi voluptates non tempora exercitationem culpa hic. Corporis, aut velit cumque tenetur natus incidunt dolore ut nostrum quod. Necessitatibus!</p>
+                            <p className='text-gray-600 text-sm my-5'>Refer someone to Sydney Disability Support and help them access essential services and support. Together, we can make a positive impact and enhance the quality of life for individuals with disabilities</p>
                             <div className='flex gap-4 my-5'>
                                 <Link to='referralForm' className='btn bg-[#6B2B77] text-white rounded-lg'>Refer Someone</Link>
-                                <Link to='previousReferred' className='btn bg-[#6B2B77] text-white rounded-lg'>View Previous Referred</Link>
+                                <Link to='previousReferred' className='btn border-1 border-[#6B2B77] text-[#6B2B77] rounded-lg bg-purple-50'>View Previous Referred</Link>
                             </div>
                         </div>
 

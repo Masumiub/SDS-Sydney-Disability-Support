@@ -21,8 +21,6 @@ const DashboardLayout = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                // Replace with logged-in user's ID (from auth.user.uid)
-                //const userId = "85OLMx8LsUdGjH4KiOoZk3udzD42";
 
                 if (!user?.uid) return; //  wait until user is available
 
@@ -151,11 +149,11 @@ const DashboardLayout = () => {
                             </div>
                         </div>
 
-                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                                <li className='border-b-1 border-gray-200'><p>{contractPersonName || userData?.name || "User"}</p></li>
-                                <li className='border-b-1 border-gray-200'><p>{userData?.email}</p></li>
-                                <li className='border-b-1 border-gray-200'><Link to='manageProfile'>Manage Profile</Link></li>
-                                <li><button onClick={handleLogout}>Signout</button></li>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-72 p-2 shadow-sm">
+                                <li className='border-b-1 border-gray-200'><p className='text-xs'>{contractPersonName || userData?.name || "User"}</p></li>
+                                <li className='border-b-1 border-gray-200'><p className='text-xs'>{userData?.email}</p></li>
+                                <li className='border-b-1 border-gray-200'><Link to='manageProfile' className='text-xs'>Manage Profile</Link></li>
+                                <li><button onClick={handleLogout} className='text-xs'>Signout</button></li>
                             </ul>
 
                         </div> : <div className='flex gap-2'>

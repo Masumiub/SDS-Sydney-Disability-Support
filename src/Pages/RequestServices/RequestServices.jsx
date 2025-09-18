@@ -5,6 +5,8 @@ import { MdCancel, MdCheckCircle } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase.config";
 
 const formatTime12 = (time24) => {
   // time24: "14:30" -> "2:30 PM"
@@ -19,9 +21,12 @@ const RequestServices = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
+  const [userData, setUserData] = useState([]);
+  const [services, setServices] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const [serviceType, setServiceType] = useState("");
   const [description, setDescription] = useState("");
+  const [additionalDetails, setAdditionalDetails] = useState("");
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [dates, setDates] = useState([]); // store ISO date strings (yyyy-mm-dd)
   const [dateInput, setDateInput] = useState(""); // single date input value
@@ -32,10 +37,55 @@ const RequestServices = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const [participantFirstName, setParticipantFirstName] = useState("");
+  const [participantLastName, setParticipantLastName] = useState("");
+  const [participantMobile, setParticipantMobile] = useState("");
+  const [participantEmail, setParticipantEmail] = useState("");
+
+
+
+  useEffect(() => {
+    // Fetch services from backend API
+    fetch("https://server-kappa-eight-95.vercel.app/api/services")
+      .then((res) => res.json())
+      .then((data) => setServices(data))
+      .catch((err) => console.error("Failed to fetch services:", err));
+  }, []);
+
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (!user?.uid) return; //  wait until user is available
+
+
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUserData(data)
+
+          // Populate participant fields from Firestore
+          setParticipantFirstName(data.name || "");
+          setParticipantLastName(data.name || "");
+          setParticipantMobile(data.phone_number || "");
+          setParticipantEmail(data.email || user.email || "");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUser();
+  }, [user]);
+
+
+
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const res = await axiosSecure.get("/api/users/staff"); // your backend route
+        const res = await axiosSecure.get("/api/users/staff");
         setStaffList(res.data);
       } catch (err) {
         console.error("Error fetching staff", err);
@@ -76,8 +126,10 @@ const RequestServices = () => {
     try {
       // prepare payload: send ISO dates (YYYY-MM-DD) and times in "h:mm A" strings
       const payload = {
-        service_type: serviceType,
-        description,
+        service_id: serviceType,
+        service_type: services.find(s => s.service_id === serviceType)?.name || "",
+        service_history_id:"",
+        description: services.find(s => s.service_id === serviceType)?.name || "",
         selected_support_worker_id: selectedStaff?.user_id || null,
         preferred_dates: dates, // backend will convert to Firestore Timestamps
         time_of_day: formatTime12(startTime),
@@ -85,9 +137,13 @@ const RequestServices = () => {
         gender_preference: genderPref,
         address_model: {
           address,
-          // address_url/lat/long optional - you can add map lookup later
+          // address_url/lat/long optional - can add map lookup later
         },
-        additional_details: "", // optional
+        additional_details: additionalDetails, 
+        participant_email: participantEmail,
+        participant_first_name: participantFirstName,
+        participant_last_name: participantLastName,
+        participant_mobile: participantMobile,
       };
 
       const res = await axiosSecure.post("/api/service-request", payload);
@@ -114,35 +170,33 @@ const RequestServices = () => {
     <div>
       <div className="w-full mx-auto px-4 py-20">
         {/* Header */}
-        <div className="mb-8 text-center border-b-1 border-gray-300 pb-25">
+        <div className="mb-8 text-center border-b-1 border-gray-200 pb-25">
           <h1 className="text-5xl font-semibold text-gray-800 mb-6">Request a Service</h1>
           <p className="text-gray-600">Input details of your requested service</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-10 items-center">
-          <div className="w-full md:w-1/2 px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-10 items-center">
+          <div className="w-full lg:w-1/2 px-4 py-8">
             <form onSubmit={handleSubmit}>
               {/* Service Type */}
               <div className="mb-6">
                 <label className="block mb-2 font-medium">Service Type</label>
                 <select value={serviceType} onChange={(e) => setServiceType(e.target.value)} className="select w-full">
                   <option value="">Select service</option>
-                  <option>House Cleaning And Other Household Activities</option>
-                  <option>Short Term/Emergency Accommodation</option>
-                  <option>Daily Living</option>
-                  <option>Community and Social Participation</option>
-                  <option>House or Yard Maintenance</option>
-                  <option>Accommodation and Tenancy Support</option>
-                  <option>Support Coordination</option>
-                  <option>Travel and Transport Assistance</option>
-                  <option>Skill Development and Life Transition</option>
+
+                  {services.map((service) => (
+                    <option key={service.service_id} value={service.service_id}>
+                      {service.name}
+                    </option>
+                  ))}
+
                 </select>
               </div>
 
               {/* Details */}
               <div className="mb-6">
                 <label className="block mb-2 font-medium">Details</label>
-                <textarea className="textarea w-full" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe what you need" />
+                <textarea className="textarea w-full" value={additionalDetails} onChange={(e) => setAdditionalDetails(e.target.value)} placeholder="Describe what you need" />
               </div>
 
               {/* Select Staff (modal) */}
@@ -170,6 +224,7 @@ const RequestServices = () => {
 
 
                           <div className="my-5">
+                            <p className="font-bold">Compliance Documents</p>
                             <div className="flex items-center justify-between text-gray-600 my-2">
                               <p>First Aid Certificate</p>
                               {s.compliance_documents?.first_aid_certificate ? <MdCheckCircle className="text-green-500" /> : <MdCancel className="text-gray-500" />}
@@ -262,6 +317,26 @@ const RequestServices = () => {
                 <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="input w-full" placeholder="Enter address" />
               </div>
 
+
+
+              <div className="mb-6 hidden">
+                <label className="block mb-2 font-medium">First Name</label>
+                <input type="text" value={participantFirstName} readOnly className="input w-full" />
+              </div>
+              <div className="mb-6 hidden">
+                <label className="block mb-2 font-medium">Last Name</label>
+                <input type="text" value={participantLastName} readOnly className="input w-full" />
+              </div>
+              <div className="mb-6 hidden">
+                <label className="block mb-2 font-medium">Email</label>
+                <input type="text" value={participantEmail} readOnly className="input w-full" />
+              </div>
+              <div className="mb-6 hidden">
+                <label className="block mb-2 font-medium">Mobile</label>
+                <input type="text" value={participantMobile} readOnly className="input w-full" />
+              </div>
+
+
               {/* Terms */}
               <div className="mb-6 flex items-center gap-3">
                 <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="checkbox mt-1" />
@@ -275,7 +350,7 @@ const RequestServices = () => {
             </form>
           </div>
 
-          <div className="w-full md:w-1/2 px-4 py-8">
+          <div className="w-full lg:w-1/2 px-4 py-8">
             <img src={imageHand} alt="imageHand" className="w-full" />
           </div>
         </div>
@@ -287,3 +362,16 @@ const RequestServices = () => {
 };
 
 export default RequestServices;
+
+
+
+
+{/* <option>House Cleaning And Other Household Activities</option>
+                  <option>Short Term/Emergency Accommodation</option>
+                  <option>Daily Living</option>
+                  <option>Community and Social Participation</option>
+                  <option>House or Yard Maintenance</option>
+                  <option>Accommodation and Tenancy Support</option>
+                  <option>Support Coordination</option>
+                  <option>Travel and Transport Assistance</option>
+                  <option>Skill Development and Life Transition</option> */}

@@ -22,32 +22,29 @@ const ServiceRequestStatus = () => {
 
                 </div>
 
-                <div>
-                    <h3 className='text-2xl mb-4 font-bold mt-4'>Status</h3>
-                    <Tabs>
-                        <TabList>
-                            <Tab>Open</Tab>
-                            <Tab>Pending Approval</Tab>
-                            <Tab>Approved</Tab>
-                            <Tab>Completed</Tab>
-                            <Tab>Closed</Tab>
-                            <Tab>Cancelled</Tab>
-                        </TabList>
+                <div className='mt-30'>
+                    {/* <h3 className='text-2xl mb-4 font-bold mt-4'>Status</h3> */}
 
-                        <TabPanel>
-                            <ScheduledServices></ScheduledServices>
-                        </TabPanel>
-                        <TabPanel>
-                            <h2>Any content 2</h2>
-                        </TabPanel>
-                        <TabPanel>
-                            <h2>Any content 2</h2>
-                        </TabPanel>
+                    {/* name of each tab group should be unique */}
+                    <div className="tabs tabs-box">
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Open" defaultChecked />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Open</div>
 
-                        <TabPanel>
-                            <h2>Any content 2</h2>
-                        </TabPanel>
-                    </Tabs>
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Pending Approval" />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Pending Approval</div>
+
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Approved" />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Approved</div>
+
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Completed" />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Completed</div>
+
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Closed" />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Closed</div>
+
+                        <input type="radio" name="my_tabs_6" className="tab" aria-label="Cancelled" />
+                        <div className="tab-content bg-base-100 border-base-300 p-6">Cancelled</div>
+                    </div>
 
                 </div>
 
